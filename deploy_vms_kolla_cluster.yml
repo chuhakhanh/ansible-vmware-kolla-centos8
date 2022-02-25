@@ -1,0 +1,38 @@
+---
+- hosts: localhost
+  vars_files: env.yml
+  gather_facts: no
+  become: true
+  serial: 4
+  tasks: 
+    - name: Create a virtual machine from a template
+      community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        validate_certs: no
+        resource_pool: kolla
+        folder: /khanhchu
+        name: "{{ item.name }}"
+        state: poweredon
+        template: centos-stream-8-kolla-1
+        esxi_hostname: 10.1.17.16
+        disk: "{{ item.disk }}"
+        hardware:
+          memory_mb: 16384
+          num_cpus: 4
+          num_cpu_cores_per_socket: 2
+          scsi: paravirtual
+          max_connections: 5
+          hotadd_cpu: True
+          hotremove_cpu: True
+          hotadd_memory: False
+          boot_firmware: "efi"
+        networks: "{{ item.networks }}"
+        wait_for_ip_address: true
+        wait_for_ip_address_timeout: 600
+      loop: "{{ vms }}" 
+      delegate_to: localhost
+      register: deploy
+      

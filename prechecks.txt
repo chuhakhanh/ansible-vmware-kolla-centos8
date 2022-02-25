@@ -1,0 +1,1225 @@
+Pre-deployment checking : ansible-playbook -e @/etc/kolla/globals.yml  -e @/etc/kolla/passwords.yml -e CONFIG_DIR=/etc/kolla  -e kolla_action=precheck /venv_kolla/share/kolla-ansible/ansible/site.yml  --inventory ./multinode
+
+PLAY [Gather facts for all hosts] **********************************************
+
+TASK [Gather facts] ************************************************************
+ok: [compute-1]
+ok: [control-1]
+ok: [localhost]
+
+TASK [Group hosts to determine when using --limit] *****************************
+ok: [compute-1]
+ok: [control-1]
+ok: [localhost]
+
+PLAY [Gather facts for all hosts (if using --limit)] ***************************
+skipping: no hosts matched
+
+PLAY [Group hosts based on configuration] **************************************
+
+TASK [Group hosts based on Kolla action] ***************************************
+ok: [compute-1]
+ok: [control-1]
+ok: [localhost]
+
+TASK [Group hosts based on enabled services] ***********************************
+ok: [compute-1] => (item=enable_aodh_False)
+ok: [compute-1] => (item=enable_barbican_False)
+ok: [control-1] => (item=enable_aodh_False)
+ok: [compute-1] => (item=enable_blazar_False)
+ok: [compute-1] => (item=enable_ceilometer_False)
+ok: [compute-1] => (item=enable_ceph_rgw_False)
+ok: [compute-1] => (item=enable_cinder_False)
+ok: [compute-1] => (item=enable_cloudkitty_False)
+ok: [compute-1] => (item=enable_collectd_False)
+ok: [compute-1] => (item=enable_cyborg_False)
+ok: [compute-1] => (item=enable_designate_False)
+ok: [compute-1] => (item=enable_elasticsearch_False)
+ok: [compute-1] => (item=enable_etcd_False)
+ok: [compute-1] => (item=enable_freezer_False)
+ok: [compute-1] => (item=enable_glance_True)
+ok: [compute-1] => (item=enable_gnocchi_False)
+ok: [compute-1] => (item=enable_grafana_False)
+ok: [compute-1] => (item=enable_hacluster_False)
+ok: [compute-1] => (item=enable_heat_True)
+ok: [compute-1] => (item=enable_horizon_True)
+ok: [compute-1] => (item=enable_influxdb_False)
+ok: [compute-1] => (item=enable_ironic_False)
+ok: [compute-1] => (item=enable_iscsid_False)
+ok: [compute-1] => (item=enable_kafka_False)
+ok: [compute-1] => (item=enable_keystone_True)
+ok: [compute-1] => (item=enable_kibana_False)
+ok: [compute-1] => (item=enable_kuryr_False)
+ok: [compute-1] => (item=enable_loadbalancer_True)
+ok: [localhost] => (item=enable_aodh_False)
+ok: [localhost] => (item=enable_barbican_False)
+ok: [compute-1] => (item=enable_magnum_False)
+ok: [compute-1] => (item=enable_manila_False)
+ok: [localhost] => (item=enable_blazar_False)
+ok: [localhost] => (item=enable_ceilometer_False)
+ok: [localhost] => (item=enable_ceph_rgw_False)
+ok: [localhost] => (item=enable_cinder_False)
+ok: [localhost] => (item=enable_cloudkitty_False)
+ok: [localhost] => (item=enable_collectd_False)
+ok: [compute-1] => (item=enable_mariadb_True)
+ok: [compute-1] => (item=enable_masakari_False)
+ok: [compute-1] => (item=enable_memcached_True)
+ok: [compute-1] => (item=enable_mistral_False)
+ok: [compute-1] => (item=enable_monasca_False)
+ok: [compute-1] => (item=enable_multipathd_False)
+ok: [compute-1] => (item=enable_murano_False)
+ok: [compute-1] => (item=enable_neutron_True)
+ok: [control-1] => (item=enable_barbican_False)
+ok: [control-1] => (item=enable_blazar_False)
+ok: [control-1] => (item=enable_ceilometer_False)
+ok: [control-1] => (item=enable_ceph_rgw_False)
+ok: [control-1] => (item=enable_cinder_False)
+ok: [control-1] => (item=enable_cloudkitty_False)
+ok: [control-1] => (item=enable_collectd_False)
+ok: [control-1] => (item=enable_cyborg_False)
+ok: [control-1] => (item=enable_designate_False)
+ok: [control-1] => (item=enable_elasticsearch_False)
+ok: [control-1] => (item=enable_etcd_False)
+ok: [control-1] => (item=enable_freezer_False)
+ok: [control-1] => (item=enable_glance_True)
+ok: [control-1] => (item=enable_gnocchi_False)
+ok: [control-1] => (item=enable_grafana_False)
+ok: [control-1] => (item=enable_hacluster_False)
+ok: [control-1] => (item=enable_heat_True)
+ok: [control-1] => (item=enable_horizon_True)
+ok: [control-1] => (item=enable_influxdb_False)
+ok: [control-1] => (item=enable_ironic_False)
+ok: [control-1] => (item=enable_iscsid_False)
+ok: [control-1] => (item=enable_kafka_False)
+ok: [control-1] => (item=enable_keystone_True)
+ok: [control-1] => (item=enable_kibana_False)
+ok: [control-1] => (item=enable_kuryr_False)
+ok: [control-1] => (item=enable_loadbalancer_True)
+ok: [control-1] => (item=enable_magnum_False)
+ok: [control-1] => (item=enable_manila_False)
+ok: [control-1] => (item=enable_mariadb_True)
+ok: [control-1] => (item=enable_masakari_False)
+ok: [control-1] => (item=enable_memcached_True)
+ok: [control-1] => (item=enable_mistral_False)
+ok: [control-1] => (item=enable_monasca_False)
+ok: [control-1] => (item=enable_multipathd_False)
+ok: [control-1] => (item=enable_murano_False)
+ok: [control-1] => (item=enable_neutron_True)
+ok: [control-1] => (item=enable_nova_True)
+ok: [control-1] => (item=enable_octavia_False)
+ok: [control-1] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [control-1] => (item=enable_outward_rabbitmq_False)
+ok: [control-1] => (item=enable_ovn_False)
+ok: [control-1] => (item=enable_placement_True)
+ok: [control-1] => (item=enable_prometheus_False)
+ok: [control-1] => (item=enable_qdrouterd_False)
+ok: [control-1] => (item=enable_rabbitmq_True)
+ok: [control-1] => (item=enable_redis_False)
+ok: [compute-1] => (item=enable_nova_True)
+ok: [control-1] => (item=enable_sahara_False)
+ok: [compute-1] => (item=enable_octavia_False)
+ok: [compute-1] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [compute-1] => (item=enable_outward_rabbitmq_False)
+ok: [compute-1] => (item=enable_ovn_False)
+ok: [compute-1] => (item=enable_placement_True)
+ok: [control-1] => (item=enable_senlin_False)
+ok: [control-1] => (item=enable_skydive_False)
+ok: [control-1] => (item=enable_solum_False)
+ok: [control-1] => (item=enable_storm_False)
+ok: [control-1] => (item=enable_swift_False)
+ok: [control-1] => (item=enable_tacker_False)
+ok: [control-1] => (item=enable_telegraf_False)
+ok: [control-1] => (item=enable_trove_False)
+ok: [control-1] => (item=enable_vitrage_False)
+ok: [control-1] => (item=enable_watcher_False)
+ok: [control-1] => (item=enable_zookeeper_False)
+ok: [control-1] => (item=enable_zun_False)
+ok: [localhost] => (item=enable_cyborg_False)
+ok: [localhost] => (item=enable_designate_False)
+ok: [localhost] => (item=enable_elasticsearch_False)
+ok: [localhost] => (item=enable_etcd_False)
+ok: [localhost] => (item=enable_freezer_False)
+ok: [localhost] => (item=enable_glance_True)
+ok: [localhost] => (item=enable_gnocchi_False)
+ok: [localhost] => (item=enable_grafana_False)
+ok: [localhost] => (item=enable_hacluster_False)
+ok: [localhost] => (item=enable_heat_True)
+ok: [localhost] => (item=enable_horizon_True)
+ok: [localhost] => (item=enable_influxdb_False)
+ok: [localhost] => (item=enable_ironic_False)
+ok: [localhost] => (item=enable_iscsid_False)
+ok: [localhost] => (item=enable_kafka_False)
+ok: [localhost] => (item=enable_keystone_True)
+ok: [localhost] => (item=enable_kibana_False)
+ok: [localhost] => (item=enable_kuryr_False)
+ok: [compute-1] => (item=enable_prometheus_False)
+ok: [localhost] => (item=enable_loadbalancer_True)
+ok: [compute-1] => (item=enable_qdrouterd_False)
+ok: [compute-1] => (item=enable_rabbitmq_True)
+ok: [localhost] => (item=enable_magnum_False)
+ok: [compute-1] => (item=enable_redis_False)
+ok: [compute-1] => (item=enable_sahara_False)
+ok: [localhost] => (item=enable_manila_False)
+ok: [compute-1] => (item=enable_senlin_False)
+ok: [compute-1] => (item=enable_skydive_False)
+ok: [compute-1] => (item=enable_solum_False)
+ok: [compute-1] => (item=enable_storm_False)
+ok: [compute-1] => (item=enable_swift_False)
+ok: [compute-1] => (item=enable_tacker_False)
+ok: [compute-1] => (item=enable_telegraf_False)
+ok: [compute-1] => (item=enable_trove_False)
+ok: [compute-1] => (item=enable_vitrage_False)
+ok: [compute-1] => (item=enable_watcher_False)
+ok: [compute-1] => (item=enable_zookeeper_False)
+ok: [compute-1] => (item=enable_zun_False)
+ok: [localhost] => (item=enable_mariadb_True)
+ok: [localhost] => (item=enable_masakari_False)
+ok: [localhost] => (item=enable_memcached_True)
+ok: [localhost] => (item=enable_mistral_False)
+ok: [localhost] => (item=enable_monasca_False)
+ok: [localhost] => (item=enable_multipathd_False)
+ok: [localhost] => (item=enable_murano_False)
+ok: [localhost] => (item=enable_neutron_True)
+ok: [localhost] => (item=enable_nova_True)
+ok: [localhost] => (item=enable_octavia_False)
+ok: [localhost] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [localhost] => (item=enable_outward_rabbitmq_False)
+ok: [localhost] => (item=enable_ovn_False)
+ok: [localhost] => (item=enable_placement_True)
+ok: [localhost] => (item=enable_prometheus_False)
+ok: [localhost] => (item=enable_qdrouterd_False)
+ok: [localhost] => (item=enable_rabbitmq_True)
+ok: [localhost] => (item=enable_redis_False)
+ok: [localhost] => (item=enable_sahara_False)
+ok: [localhost] => (item=enable_senlin_False)
+ok: [localhost] => (item=enable_skydive_False)
+ok: [localhost] => (item=enable_solum_False)
+ok: [localhost] => (item=enable_storm_False)
+ok: [localhost] => (item=enable_swift_False)
+ok: [localhost] => (item=enable_tacker_False)
+ok: [localhost] => (item=enable_telegraf_False)
+ok: [localhost] => (item=enable_trove_False)
+ok: [localhost] => (item=enable_vitrage_False)
+ok: [localhost] => (item=enable_watcher_False)
+ok: [localhost] => (item=enable_zookeeper_False)
+ok: [localhost] => (item=enable_zun_False)
+
+PLAY [Apply role prechecks] ****************************************************
+
+TASK [prechecks : Fail if group loadbalancer not exists or it is empty] ********
+skipping: [compute-1]
+skipping: [control-1]
+skipping: [localhost]
+
+TASK [prechecks : include_tasks] ***********************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/prechecks/tasks/host_os_checks.yml for compute-1, control-1, localhost
+
+TASK [prechecks : Checking host OS distribution] *******************************
+skipping: [compute-1]
+skipping: [control-1]
+skipping: [localhost]
+
+TASK [prechecks : Checking host OS release or version] *************************
+skipping: [compute-1]
+skipping: [control-1]
+skipping: [localhost]
+
+TASK [prechecks : Checking if CentOS is Stream] ********************************
+fatal: [localhost]: FAILED! => {"changed": false, "cmd": ["grep", "-q", "Stream", "/etc/os-release"], "delta": "0:00:00.006694", "end": "2022-01-19 10:18:07.445780", "msg": "non-zero return code", "rc": 1, "start": "2022-01-19 10:18:07.439086", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+ok: [control-1]
+ok: [compute-1]
+
+TASK [prechecks : Fail if not running on CentOS Stream] ************************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [prechecks : include_tasks] ***********************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/prechecks/tasks/timesync_checks.yml for compute-1, control-1
+
+TASK [prechecks : Get container facts] *****************************************
+ok: [control-1]
+ok: [compute-1]
+
+TASK [prechecks : Fail if chrony container is running] *************************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [prechecks : Check for a running host NTP daemon] *************************
+ok: [compute-1]
+ok: [control-1]
+
+TASK [prechecks : Fail if a host NTP daemon is not running] ********************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [prechecks : Checking timedatectl status] *********************************
+ok: [compute-1]
+ok: [control-1]
+
+TASK [prechecks : Fail if the clock is not synchronized] ***********************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [prechecks : Ensure /etc/localtime exist] *********************************
+ok: [compute-1]
+ok: [control-1]
+
+TASK [prechecks : Fail if /etc/localtime is absent] ****************************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [prechecks : Ensure /etc/timezone exist] **********************************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [prechecks : Fail if /etc/timezone is absent] *****************************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [prechecks : include_tasks] ***********************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/prechecks/tasks/port_checks.yml for compute-1, control-1
+
+TASK [prechecks : Checking the api_interface is present] ***********************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [prechecks : Checking the api_interface is active] ************************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [prechecks : Checking the api_interface ip address configuration] *********
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [prechecks : Checking Docker version] *************************************
+ok: [compute-1]
+ok: [control-1]
+
+TASK [prechecks : Checking empty passwords in passwords.yml. Run kolla-genpwd if this task fails] ***
+ok: [compute-1 -> localhost]
+
+TASK [prechecks : Check if nscd is running] ************************************
+ok: [compute-1]
+ok: [control-1]
+
+TASK [prechecks : Fail if nscd is running] *************************************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [prechecks : Validate that internal and external vip address are different when TLS is enabled only on either the internal and external network] ***
+skipping: [compute-1]
+
+TASK [prechecks : Validate that enable_ceph is disabled] ***********************
+skipping: [compute-1]
+
+TASK [prechecks : Checking docker SDK version] *********************************
+ok: [compute-1]
+ok: [control-1]
+
+TASK [prechecks : Checking Ansible version] ************************************
+skipping: [compute-1]
+
+TASK [prechecks : Check if config_owner_user existed] **************************
+ok: [control-1]
+ok: [compute-1]
+
+TASK [prechecks : Check if config_owner_group existed] *************************
+ok: [compute-1]
+ok: [control-1]
+
+TASK [prechecks : Check if ansible user can do passwordless sudo] **************
+ok: [compute-1]
+ok: [control-1]
+
+TASK [prechecks : Check if external mariadb hosts are reachable from the load balancer] ***
+skipping: [compute-1] => (item=control-1) 
+skipping: [control-1] => (item=control-1) 
+
+TASK [prechecks : Check if external database address is reachable from all hosts] ***
+skipping: [compute-1]
+skipping: [control-1]
+
+PLAY [Apply role common] *******************************************************
+
+TASK [common : include_tasks] **************************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/common/tasks/precheck.yml for control-1, compute-1
+
+TASK [service-precheck : common | Validate inventory groups] *******************
+skipping: [control-1] => (item=fluentd) 
+skipping: [control-1] => (item=kolla-toolbox) 
+skipping: [control-1] => (item=cron) 
+skipping: [compute-1] => (item=fluentd) 
+skipping: [compute-1] => (item=kolla-toolbox) 
+skipping: [compute-1] => (item=cron) 
+
+PLAY [Apply role loadbalancer] *************************************************
+
+TASK [loadbalancer : include_tasks] ********************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/loadbalancer/tasks/precheck.yml for control-1
+
+TASK [service-precheck : loadbalancer | Validate inventory groups] *************
+skipping: [control-1] => (item=haproxy) 
+skipping: [control-1] => (item=keepalived) 
+
+TASK [loadbalancer : Get container facts] **************************************
+ok: [control-1]
+
+TASK [loadbalancer : Group hosts by whether they are running keepalived] *******
+ok: [control-1]
+
+TASK [loadbalancer : Group hosts by whether they are running HAProxy] **********
+ok: [control-1]
+
+TASK [loadbalancer : Set facts about whether we can run HAProxy and keepalived VIP prechecks] ***
+ok: [control-1]
+
+TASK [loadbalancer : Checking if external haproxy certificate exists] **********
+skipping: [control-1]
+
+TASK [loadbalancer : Fail if external haproxy certificate is absent] ***********
+skipping: [control-1]
+
+TASK [loadbalancer : Checking if internal haproxy certificate exists] **********
+skipping: [control-1]
+
+TASK [loadbalancer : Fail if internal haproxy certificate is absent] ***********
+skipping: [control-1]
+
+TASK [loadbalancer : Checking the kolla_external_vip_interface is present] *****
+skipping: [control-1]
+
+TASK [loadbalancer : Checking the kolla_external_vip_interface is active] ******
+skipping: [control-1]
+
+TASK [loadbalancer : Checking if kolla_internal_vip_address and kolla_external_vip_address are not pingable from any node] ***
+ok: [control-1] => (item={'address': '10.1.17.50', 'command': 'ping'})
+ok: [control-1] => (item={'address': '10.1.17.50', 'command': 'ping'})
+
+TASK [loadbalancer : Checking free port for HAProxy stats] *********************
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for HAProxy monitor (api interface)] ***
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for HAProxy monitor (vip interface)] ***
+ok: [control-1]
+
+TASK [loadbalancer : Checking if kolla_internal_vip_address is in the same network as api_interface on all nodes] ***
+ok: [control-1]
+
+TASK [loadbalancer : Getting haproxy stat] *************************************
+skipping: [control-1]
+
+TASK [loadbalancer : Setting haproxy stat fact] ********************************
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Aodh API HAProxy] ******************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Barbican API HAProxy] **************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Blazar API HAProxy] ****************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Ceph RadosGW HAProxy] **************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Cinder API HAProxy] ****************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Cloudkitty API HAProxy] ************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Cyborg API HAProxy] ****************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Designate API HAProxy] *************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Elasticsearch HAProxy] *************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Glance API HAProxy] ****************
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Gnocchi API HAProxy] ***************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Freezer API HAProxy] ***************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Grafana server HAProxy] ************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Heat API HAProxy] ******************
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Heat API CFN HAProxy] **************
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Horizon HAProxy] *******************
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Ironic API HAProxy] ****************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Ironic Inspector HAProxy] **********
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Keystone Admin HAProxy] ************
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Keystone Internal HAProxy] *********
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Keystone Public HAProxy] ***********
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Kibana HAProxy] ********************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Magnum API HAProxy] ****************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Manila API HAProxy] ****************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for MariaDB HAProxy] *******************
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Masakari API HAProxy] **************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Mistral API HAProxy] ***************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Monasca API internal HAProxy] ******
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Monasca API public HAProxy] ********
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Monasca Log API internal HAProxy] ***
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Monasca Log API public HAProxy] ****
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Murano API HAProxy] ****************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Neutron Server HAProxy] ************
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Nova API HAProxy] ******************
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Nova Metadata HAProxy] *************
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Nova NoVNC HAProxy] ****************
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Nova Serial Proxy HAProxy] *********
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Nova Spice HTML5 HAProxy] **********
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Nova Placement API HAProxy] ********
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for Octavia API HAProxy] ***************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for RabbitMQ Management HAProxy] *******
+ok: [control-1]
+
+TASK [loadbalancer : Checking free port for outward RabbitMQ Management HAProxy] ***
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Sahara API HAProxy] ****************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Senlin API HAProxy] ****************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Solum Application Deployment HAProxy] ***
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Solum Image Builder HAProxy] *******
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Swift Proxy Server HAProxy] ********
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Tacker Server HAProxy] *************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Trove API HAProxy] *****************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Watcher API HAProxy] ***************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Zun API HAProxy] *******************
+skipping: [control-1]
+
+TASK [loadbalancer : Checking free port for Vitrage API HAProxy] ***************
+skipping: [control-1]
+
+TASK [include_role : aodh] *****************************************************
+skipping: [control-1]
+
+TASK [include_role : barbican] *************************************************
+skipping: [control-1]
+
+TASK [include_role : blazar] ***************************************************
+skipping: [control-1]
+
+TASK [include_role : ceph-rgw] *************************************************
+skipping: [control-1]
+
+TASK [include_role : cinder] ***************************************************
+skipping: [control-1]
+
+TASK [include_role : cloudkitty] ***********************************************
+skipping: [control-1]
+
+TASK [include_role : cyborg] ***************************************************
+skipping: [control-1]
+
+TASK [include_role : designate] ************************************************
+skipping: [control-1]
+
+TASK [include_role : elasticsearch] ********************************************
+skipping: [control-1]
+
+TASK [include_role : freezer] **************************************************
+skipping: [control-1]
+
+TASK [include_role : glance] ***************************************************
+skipping: [control-1]
+
+TASK [include_role : gnocchi] **************************************************
+skipping: [control-1]
+
+TASK [include_role : grafana] **************************************************
+skipping: [control-1]
+
+TASK [include_role : heat] *****************************************************
+skipping: [control-1]
+
+TASK [include_role : horizon] **************************************************
+skipping: [control-1]
+
+TASK [include_role : influxdb] *************************************************
+skipping: [control-1]
+
+TASK [include_role : ironic] ***************************************************
+skipping: [control-1]
+
+TASK [include_role : keystone] *************************************************
+skipping: [control-1]
+
+TASK [include_role : kibana] ***************************************************
+skipping: [control-1]
+
+TASK [include_role : magnum] ***************************************************
+skipping: [control-1]
+
+TASK [include_role : manila] ***************************************************
+skipping: [control-1]
+
+TASK [include_role : mariadb] **************************************************
+skipping: [control-1]
+
+TASK [include_role : masakari] *************************************************
+skipping: [control-1]
+
+TASK [include_role : memcached] ************************************************
+skipping: [control-1]
+
+TASK [include_role : mistral] **************************************************
+skipping: [control-1]
+
+TASK [include_role : monasca] **************************************************
+skipping: [control-1]
+
+TASK [include_role : murano] ***************************************************
+skipping: [control-1]
+
+TASK [include_role : neutron] **************************************************
+skipping: [control-1]
+
+TASK [include_role : placement] ************************************************
+skipping: [control-1]
+
+TASK [include_role : nova] *****************************************************
+skipping: [control-1]
+
+TASK [include_role : nova-cell] ************************************************
+skipping: [control-1]
+
+TASK [include_role : octavia] **************************************************
+skipping: [control-1]
+
+TASK [include_role : prometheus] ***********************************************
+skipping: [control-1]
+
+TASK [include_role : rabbitmq] *************************************************
+skipping: [control-1]
+
+TASK [include_role : sahara] ***************************************************
+skipping: [control-1]
+
+TASK [include_role : senlin] ***************************************************
+skipping: [control-1]
+
+TASK [include_role : skydive] **************************************************
+skipping: [control-1]
+
+TASK [include_role : solum] ****************************************************
+skipping: [control-1]
+
+TASK [include_role : swift] ****************************************************
+skipping: [control-1]
+
+TASK [include_role : tacker] ***************************************************
+skipping: [control-1]
+
+TASK [include_role : trove] ****************************************************
+skipping: [control-1]
+
+TASK [include_role : vitrage] **************************************************
+skipping: [control-1]
+
+TASK [include_role : watcher] **************************************************
+skipping: [control-1]
+
+TASK [include_role : zun] ******************************************************
+skipping: [control-1]
+
+PLAY [Apply role collectd] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role zookeeper] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role influxdb] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role telegraf] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role redis] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role mariadb] ******************************************************
+
+TASK [mariadb : Group MariaDB hosts based on shards] ***************************
+ok: [control-1] => (item=control-1)
+
+TASK [mariadb : include_tasks] *************************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/mariadb/tasks/precheck.yml for control-1
+
+TASK [service-precheck : mariadb | Validate inventory groups] ******************
+skipping: [control-1] => (item=mariadb) 
+skipping: [control-1] => (item=mariadb-clustercheck) 
+
+TASK [mariadb : Get container facts] *******************************************
+ok: [control-1]
+
+TASK [mariadb : Checking free port for MariaDB] ********************************
+ok: [control-1]
+
+TASK [mariadb : Checking free port for MariaDB WSREP] **************************
+ok: [control-1]
+
+TASK [mariadb : Checking free port for MariaDB IST] ****************************
+ok: [control-1]
+
+TASK [mariadb : Checking free port for MariaDB SST] ****************************
+ok: [control-1]
+
+PLAY [Apply role memcached] ****************************************************
+
+TASK [memcached : include_tasks] ***********************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/memcached/tasks/precheck.yml for control-1
+
+TASK [service-precheck : memcached | Validate inventory groups] ****************
+skipping: [control-1] => (item=memcached) 
+
+TASK [memcached : Get container facts] *****************************************
+ok: [control-1]
+
+TASK [memcached : Checking free port for Memcached] ****************************
+ok: [control-1]
+
+PLAY [Apply role prometheus] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role iscsi] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role multipathd] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role rabbitmq] *****************************************************
+
+TASK [rabbitmq : include_tasks] ************************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/rabbitmq/tasks/precheck.yml for control-1
+
+TASK [service-precheck : rabbitmq | Validate inventory groups] *****************
+skipping: [control-1] => (item=rabbitmq) 
+
+TASK [rabbitmq : Get container facts] ******************************************
+ok: [control-1]
+
+TASK [rabbitmq : Checking free port for RabbitMQ] ******************************
+ok: [control-1]
+
+TASK [rabbitmq : Checking free port for RabbitMQ Management] *******************
+ok: [control-1]
+
+TASK [rabbitmq : Checking free port for RabbitMQ Cluster] **********************
+ok: [control-1]
+
+TASK [rabbitmq : Checking free port for RabbitMQ EPMD] *************************
+ok: [control-1]
+
+TASK [rabbitmq : Check if all rabbit hostnames are resolvable] *****************
+ok: [control-1] => (item=control-1)
+
+TASK [rabbitmq : Check if each rabbit hostname resolves uniquely to the proper IP address] ***
+skipping: [control-1] => (item=[{'changed': False, 'stdout': '10.1.17.51      STREAM control-1\n10.1.17.51      DGRAM  \n10.1.17.51      RAW    ', 'stderr': '', 'rc': 0, 'cmd': ['getent', 'ahostsv4', 'control-1'], 'start': '2022-01-19 10:19:08.723726', 'end': '2022-01-19 10:19:08.731758', 'delta': '0:00:00.008032', 'msg': '', 'invocation': {'module_args': {'_raw_params': 'getent ahostsv4 control-1', '_uses_shell': False, 'warn': False, 'stdin_add_newline': True, 'strip_empty_ends': True, 'argv': None, 'chdir': None, 'executable': None, 'creates': None, 'removes': None, 'stdin': None}}, 'stderr_lines': [], 'failed': False, 'item': 'control-1', 'ansible_loop_var': 'item'}, '10.1.17.51      STREAM control-1']) 
+skipping: [control-1] => (item=[{'changed': False, 'stdout': '10.1.17.51      STREAM control-1\n10.1.17.51      DGRAM  \n10.1.17.51      RAW    ', 'stderr': '', 'rc': 0, 'cmd': ['getent', 'ahostsv4', 'control-1'], 'start': '2022-01-19 10:19:08.723726', 'end': '2022-01-19 10:19:08.731758', 'delta': '0:00:00.008032', 'msg': '', 'invocation': {'module_args': {'_raw_params': 'getent ahostsv4 control-1', '_uses_shell': False, 'warn': False, 'stdin_add_newline': True, 'strip_empty_ends': True, 'argv': None, 'chdir': None, 'executable': None, 'creates': None, 'removes': None, 'stdin': None}}, 'stderr_lines': [], 'failed': False, 'item': 'control-1', 'ansible_loop_var': 'item'}, '10.1.17.51      DGRAM  ']) 
+skipping: [control-1] => (item=[{'changed': False, 'stdout': '10.1.17.51      STREAM control-1\n10.1.17.51      DGRAM  \n10.1.17.51      RAW    ', 'stderr': '', 'rc': 0, 'cmd': ['getent', 'ahostsv4', 'control-1'], 'start': '2022-01-19 10:19:08.723726', 'end': '2022-01-19 10:19:08.731758', 'delta': '0:00:00.008032', 'msg': '', 'invocation': {'module_args': {'_raw_params': 'getent ahostsv4 control-1', '_uses_shell': False, 'warn': False, 'stdin_add_newline': True, 'strip_empty_ends': True, 'argv': None, 'chdir': None, 'executable': None, 'creates': None, 'removes': None, 'stdin': None}}, 'stderr_lines': [], 'failed': False, 'item': 'control-1', 'ansible_loop_var': 'item'}, '10.1.17.51      RAW    ']) 
+
+TASK [rabbitmq : Check if TLS certificate exists for RabbitMQ] *****************
+skipping: [control-1]
+
+TASK [rabbitmq : Check if TLS key exists for RabbitMQ] *************************
+skipping: [control-1]
+
+TASK [rabbitmq : Checking free port for outward RabbitMQ] **********************
+skipping: [control-1]
+
+TASK [rabbitmq : Checking free port for outward RabbitMQ Management] ***********
+skipping: [control-1]
+
+TASK [rabbitmq : Checking free port for outward RabbitMQ Cluster] **************
+skipping: [control-1]
+
+TASK [rabbitmq : Checking free port for outward RabbitMQ EPMD] *****************
+skipping: [control-1]
+
+TASK [rabbitmq : Check if all outward rabbit hostnames are resolvable] *********
+skipping: [control-1] => (item=control-1) 
+
+TASK [rabbitmq : Check if each rabbit hostname resolves uniquely to the proper IP address] ***
+
+TASK [rabbitmq : Check if TLS certificate exists for outward RabbitMQ] *********
+skipping: [control-1]
+
+TASK [rabbitmq : Check if TLS key exists for outward RabbitMQ] *****************
+skipping: [control-1]
+
+PLAY [Apply role rabbitmq (outward)] *******************************************
+skipping: no hosts matched
+
+PLAY [Apply role qdrouterd] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role etcd] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role keystone] *****************************************************
+
+TASK [keystone : include_tasks] ************************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/keystone/tasks/precheck.yml for control-1
+
+TASK [service-precheck : keystone | Validate inventory groups] *****************
+skipping: [control-1] => (item=keystone) 
+skipping: [control-1] => (item=keystone-ssh) 
+skipping: [control-1] => (item=keystone-fernet) 
+
+TASK [keystone : Get container facts] ******************************************
+ok: [control-1]
+
+TASK [keystone : Checking free port for Keystone Admin] ************************
+ok: [control-1]
+
+TASK [keystone : Checking free port for Keystone Public] ***********************
+ok: [control-1]
+
+TASK [keystone : Checking free port for Keystone SSH] **************************
+ok: [control-1]
+
+TASK [keystone : Checking fernet_token_expiry] *********************************
+ok: [control-1] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY [Apply role elasticsearch] ************************************************
+skipping: no hosts matched
+
+PLAY [Apply role kibana] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role kafka] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role storm] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role swift] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ceph-rgw] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role glance] *******************************************************
+
+TASK [glance : include_tasks] **************************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/glance/tasks/precheck.yml for control-1
+
+TASK [service-precheck : glance | Validate inventory groups] *******************
+skipping: [control-1] => (item=glance-api) 
+skipping: [control-1] => (item=glance-tls-proxy) 
+
+TASK [glance : Get container facts] ********************************************
+ok: [control-1]
+
+TASK [glance : Checking free port for Glance API] ******************************
+ok: [control-1]
+
+PLAY [Apply role ironic] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cinder] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role placement] ****************************************************
+
+TASK [placement : include_tasks] ***********************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/placement/tasks/precheck.yml for control-1
+
+TASK [service-precheck : placement | Validate inventory groups] ****************
+skipping: [control-1] => (item=placement-api) 
+
+TASK [placement : Get container facts] *****************************************
+ok: [control-1]
+
+TASK [placement : Checking free port for Placement API] ************************
+ok: [control-1]
+
+PLAY [Bootstrap nova API databases] ********************************************
+
+TASK [Bootstrap deploy] ********************************************************
+skipping: [control-1]
+
+TASK [Bootstrap upgrade] *******************************************************
+skipping: [control-1]
+
+PLAY [Bootstrap nova cell databases] *******************************************
+
+TASK [Bootstrap deploy] ********************************************************
+skipping: [control-1]
+
+TASK [Bootstrap upgrade] *******************************************************
+skipping: [control-1]
+
+PLAY [Apply role nova] *********************************************************
+
+TASK [nova : include_tasks] ****************************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/nova/tasks/precheck.yml for control-1
+
+TASK [service-precheck : nova | Validate inventory groups] *********************
+skipping: [control-1] => (item=nova-api) 
+skipping: [control-1] => (item=nova-scheduler) 
+skipping: [control-1] => (item=nova-super-conductor) 
+
+TASK [nova : Get container facts] **********************************************
+ok: [control-1]
+
+TASK [nova : Checking free port for Nova API] **********************************
+ok: [control-1]
+
+TASK [nova : Checking free port for Nova Metadata] *****************************
+ok: [control-1]
+
+PLAY [Apply role nova-cell] ****************************************************
+
+TASK [nova-cell : include_tasks] ***********************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/nova-cell/tasks/precheck.yml for compute-1, control-1
+
+TASK [service-precheck : nova | Validate inventory groups] *********************
+skipping: [compute-1] => (item=nova-libvirt) 
+skipping: [control-1] => (item=nova-libvirt) 
+skipping: [compute-1] => (item=nova-ssh) 
+skipping: [compute-1] => (item=nova-novncproxy) 
+skipping: [compute-1] => (item=nova-spicehtml5proxy) 
+skipping: [compute-1] => (item=nova-serialproxy) 
+skipping: [compute-1] => (item=nova-conductor) 
+skipping: [compute-1] => (item=nova-compute) 
+skipping: [compute-1] => (item=nova-compute-ironic) 
+skipping: [control-1] => (item=nova-ssh) 
+skipping: [control-1] => (item=nova-novncproxy) 
+skipping: [control-1] => (item=nova-spicehtml5proxy) 
+skipping: [control-1] => (item=nova-serialproxy) 
+skipping: [control-1] => (item=nova-conductor) 
+skipping: [control-1] => (item=nova-compute) 
+skipping: [control-1] => (item=nova-compute-ironic) 
+
+TASK [nova-cell : Get container facts] *****************************************
+ok: [control-1]
+ok: [compute-1]
+
+TASK [nova-cell : Checking available compute nodes in inventory] ***************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [nova-cell : Checking free port for Nova NoVNC Proxy] *********************
+skipping: [compute-1]
+ok: [control-1]
+
+TASK [nova-cell : Checking free port for Nova Serial Proxy] ********************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [nova-cell : Checking free port for Nova Spice HTML5 Proxy] ***************
+skipping: [compute-1]
+skipping: [control-1]
+
+TASK [nova-cell : Checking free port for Nova SSH] *****************************
+skipping: [control-1]
+ok: [compute-1]
+
+TASK [nova-cell : Checking free port for Nova Libvirt] *************************
+skipping: [control-1]
+ok: [compute-1]
+
+TASK [nova-cell : Checking that libvirt is not running] ************************
+skipping: [control-1]
+fatal: [compute-1]: FAILED! => {"changed": false, "failed_when_result": true, "stat": {"atime": 1642561673.2645102, "attr_flags": "", "attributes": [], "block_size": 4096, "blocks": 0, "charset": "binary", "ctime": 1642561673.2645102, "dev": 24, "device_type": 0, "executable": false, "exists": true, "gid": 0, "gr_name": "root", "inode": 25519, "isblk": false, "ischr": false, "isdir": false, "isfifo": false, "isgid": false, "islnk": false, "isreg": false, "issock": true, "isuid": false, "mimetype": "inode/socket", "mode": "0666", "mtime": 1642561673.2645102, "nlink": 1, "path": "/var/run/libvirt/libvirt-sock", "pw_name": "root", "readable": true, "rgrp": true, "roth": true, "rusr": true, "size": 0, "uid": 0, "version": null, "wgrp": true, "woth": true, "writeable": true, "wusr": true, "xgrp": false, "xoth": false, "xusr": false}}
+
+PLAY [Refresh nova scheduler cell cache] ***************************************
+
+TASK [nova : Refresh cell cache in nova scheduler] *****************************
+skipping: [control-1]
+
+PLAY [Reload global Nova super conductor services] *****************************
+
+TASK [nova : Reload nova super conductor services to remove RPC version pin] ***
+skipping: [control-1]
+
+PLAY [Reload Nova cell services] ***********************************************
+
+TASK [nova-cell : Reload nova cell services to remove RPC version cap] *********
+skipping: [control-1] => (item=nova-conductor) 
+skipping: [control-1] => (item=nova-compute) 
+skipping: [control-1] => (item=nova-compute-ironic) 
+skipping: [control-1] => (item=nova-novncproxy) 
+skipping: [control-1] => (item=nova-serialproxy) 
+skipping: [control-1] => (item=nova-spicehtml5proxy) 
+
+PLAY [Reload global Nova API services] *****************************************
+
+TASK [nova : Reload nova API services to remove RPC version pin] ***************
+skipping: [control-1] => (item=nova-scheduler) 
+skipping: [control-1] => (item=nova-api) 
+
+PLAY [Run Nova API online data migrations] *************************************
+
+TASK [nova : Run Nova API online database migrations] **************************
+skipping: [control-1]
+
+PLAY [Run Nova cell online data migrations] ************************************
+
+TASK [nova-cell : Run Nova cell online database migrations] ********************
+skipping: [control-1]
+
+PLAY [Apply role openvswitch] **************************************************
+
+TASK [openvswitch : include_tasks] *********************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/openvswitch/tasks/precheck.yml for control-1
+
+TASK [service-precheck : openvswitch | Validate inventory groups] **************
+skipping: [control-1] => (item=openvswitch-db-server) 
+skipping: [control-1] => (item=openvswitch-vswitchd) 
+
+TASK [openvswitch : Get container facts] ***************************************
+ok: [control-1]
+
+TASK [openvswitch : Checking free port for OVSDB] ******************************
+ok: [control-1]
+
+PLAY [Apply role ovs-dpdk] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ovn] **********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role neutron] ******************************************************
+
+TASK [neutron : include_tasks] *************************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/neutron/tasks/precheck.yml for control-1
+
+TASK [service-precheck : neutron | Validate inventory groups] ******************
+skipping: [control-1] => (item=neutron-server) 
+skipping: [control-1] => (item=neutron-openvswitch-agent) 
+skipping: [control-1] => (item=neutron-linuxbridge-agent) 
+skipping: [control-1] => (item=neutron-dhcp-agent) 
+skipping: [control-1] => (item=neutron-l3-agent) 
+skipping: [control-1] => (item=neutron-sriov-agent) 
+skipping: [control-1] => (item=neutron-mlnx-agent) 
+skipping: [control-1] => (item=neutron-eswitchd) 
+skipping: [control-1] => (item=neutron-metadata-agent) 
+skipping: [control-1] => (item=neutron-ovn-metadata-agent) 
+skipping: [control-1] => (item=neutron-bgp-dragent) 
+skipping: [control-1] => (item=neutron-infoblox-ipam-agent) 
+skipping: [control-1] => (item=neutron-metering-agent) 
+skipping: [control-1] => (item=ironic-neutron-agent) 
+skipping: [control-1] => (item=neutron-tls-proxy) 
+
+TASK [neutron : Get container facts] *******************************************
+ok: [control-1]
+
+TASK [neutron : Checking free port for Neutron Server] *************************
+ok: [control-1]
+
+TASK [neutron : Checking number of network agents] *****************************
+skipping: [control-1]
+
+TASK [neutron : Checking tenant network types] *********************************
+skipping: [control-1] => (item=vxlan) 
+
+TASK [neutron : Checking whether Ironic enabled] *******************************
+skipping: [control-1]
+
+PLAY [Apply role kuryr] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role hacluster] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role heat] *********************************************************
+
+TASK [heat : include_tasks] ****************************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/heat/tasks/precheck.yml for control-1
+
+TASK [service-precheck : heat | Validate inventory groups] *********************
+skipping: [control-1] => (item=heat-api) 
+skipping: [control-1] => (item=heat-api-cfn) 
+skipping: [control-1] => (item=heat-engine) 
+
+TASK [heat : Get container facts] **********************************************
+ok: [control-1]
+
+TASK [heat : Checking free port for Heat API] **********************************
+ok: [control-1]
+
+TASK [heat : Checking free port for Heat API CFN] ******************************
+ok: [control-1]
+
+PLAY [Apply role horizon] ******************************************************
+
+TASK [horizon : include_tasks] *************************************************
+included: /venv_kolla/share/kolla-ansible/ansible/roles/horizon/tasks/precheck.yml for control-1
+
+TASK [service-precheck : horizon | Validate inventory groups] ******************
+skipping: [control-1] => (item=horizon) 
+
+TASK [horizon : Get container facts] *******************************************
+ok: [control-1]
+
+TASK [horizon : Checking free port for Horizon] ********************************
+ok: [control-1]
+
+PLAY [Apply role murano] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role solum] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role magnum] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role mistral] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role sahara] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role manila] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role gnocchi] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ceilometer] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role monasca] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role aodh] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role barbican] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cyborg] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role designate] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role trove] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role watcher] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role grafana] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cloudkitty] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role freezer] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role senlin] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role tacker] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role octavia] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role zun] **********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role skydive] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role vitrage] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role blazar] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role masakari] *****************************************************
+skipping: no hosts matched
+
+PLAY RECAP *********************************************************************
+compute-1                  : ok=24   changed=0    unreachable=0    failed=1    skipped=25   rescued=0    ignored=0   
+control-1                  : ok=92   changed=0    unreachable=0    failed=0    skipped=150  rescued=0    ignored=0   
+localhost                  : ok=5    changed=0    unreachable=0    failed=1    skipped=3    rescued=0    ignored=0   
+
+Command failed ansible-playbook -e @/etc/kolla/globals.yml  -e @/etc/kolla/passwords.yml -e CONFIG_DIR=/etc/kolla  -e kolla_action=precheck /venv_kolla/share/kolla-ansible/ansible/site.yml  --inventory ./multinode
