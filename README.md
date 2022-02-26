@@ -9,3 +9,9 @@ vi /etc/exports
 # auto-control
 vi /etc/kolla/config/nfs_shares
 storage-1:/kolla_nfs
+
+for i in control-1 control-2 control-3 compute-1 compute-2 compute-3 storage-1 ;
+do 
+  ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@$i ; 
+done
+
