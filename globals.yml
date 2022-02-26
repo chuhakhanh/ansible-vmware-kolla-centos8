@@ -34,7 +34,7 @@ kolla_base_distro: "centos"
 kolla_install_type: "source"
 
 # Do not override this unless you know what you are doing.
-openstack_release: "victoria"
+openstack_release: "master"
 
 # Docker image tag used by default.
 #openstack_tag: "{{ openstack_release ~ openstack_tag_suffix }}"
@@ -298,12 +298,12 @@ enable_haproxy: "yes"
 #enable_central_logging: "no"
 #enable_ceph_rgw: "no"
 #enable_ceph_rgw_loadbalancer: "{{ enable_ceph_rgw | bool }}"
-#enable_cinder: "no"
+enable_cinder: "yes"
 #enable_cinder_backup: "yes"
 #enable_cinder_backend_hnas_nfs: "no"
 #enable_cinder_backend_iscsi: "{{ enable_cinder_backend_lvm | bool }}"
 #enable_cinder_backend_lvm: "no"
-#enable_cinder_backend_nfs: "no"
+enable_cinder_backend_nfs: "yes"
 #enable_cinder_backend_quobyte: "no"
 #enable_cloudkitty: "no"
 #enable_collectd: "no"

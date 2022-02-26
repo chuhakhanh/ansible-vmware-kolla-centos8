@@ -17,7 +17,7 @@ compute-3
 
 
 [storage]
-
+storage-1
 
 [deployment]
 localhost       ansible_connection=local
