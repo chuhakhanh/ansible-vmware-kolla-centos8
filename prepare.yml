@@ -1,0 +1,13 @@
+---
+- hosts: all
+  vars_files: env.yml
+  gather_facts: no
+  become: true
+  serial: 4
+  tasks: 
+    - name: Copy host file to etc host
+      copy:
+        src: hosts
+        dest: /etc/hosts
+
+      
