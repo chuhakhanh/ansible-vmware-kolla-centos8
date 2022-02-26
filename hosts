@@ -63,7 +63,7 @@
 192.168.126.55 compute-2.priv
 192.168.126.56 compute-3.priv
 
-192.168.126.57 storage-1
+192.168.126.57 storage-1.priv
 
 # cluster c2 - openstack train
 
