@@ -19,4 +19,4 @@ ansible-playbook -i multinode prepare.yml
 cp global.yml /etc/global.yml
 cp passsword.yml /etc/passsword.yml
 kolla-ansible -i ./multinode prechecks
-kolla-ansible -i ./multinode deploy
+kolla-ansible -i ./multinode deploy --limit storage
