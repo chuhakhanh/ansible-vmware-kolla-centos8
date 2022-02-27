@@ -18,5 +18,7 @@ done
 ansible-playbook -i multinode prepare.yml 
 cp global.yml /etc/global.yml
 cp passsword.yml /etc/passsword.yml
-kolla-ansible -i ./multinode prechecks
+kolla-ansible -i ./multinode bootstrap-servers --limit storage
+kolla-ansible -i ./multinode prechecks --limit storage
+kolla-ansible -i ./multinode pull --limit storage
 kolla-ansible -i ./multinode deploy --limit storage
