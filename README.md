@@ -15,6 +15,7 @@ do
   ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@$i ; 
 done
 
+# deploy openstack
 ansible-playbook -i multinode prepare.yml 
 cp global.yml /etc/global.yml
 cp passsword.yml /etc/passsword.yml
