@@ -310,7 +310,7 @@ enable_cloudkitty: "yes"
 #enable_cyborg: "no"
 #enable_designate: "no"
 #enable_destroy_images: "no"
-#enable_elasticsearch: "{{ 'yes' if enable_central_logging | bool or enable_osprofiler | bool or enable_skydive | bool or enable_monasca | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'elasticsearch') else 'no' }}"
+enable_elasticsearch: "{{ 'yes' if enable_central_logging | bool or enable_osprofiler | bool or enable_skydive | bool or enable_monasca | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'elasticsearch') else 'no' }}"
 #enable_elasticsearch_curator: "no"
 #enable_etcd: "no"
 enable_fluentd: "no"
@@ -541,7 +541,7 @@ cloudkitty_collector_backend: "gnocchi"
 # When the backend is "influxdb", we also enable Influxdb.
 # Also, when using 'influxdb' as the backend, we trigger the configuration/use
 # of Cloudkitty storage backend version 2.
-cloudkitty_storage_backend: "influxdb"
+cloudkitty_storage_backend: "elasticsearch"
 
 ###################
 # Designate options
