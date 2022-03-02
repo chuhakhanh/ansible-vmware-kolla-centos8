@@ -6,6 +6,7 @@ vi /etc/exports
 systemctl start nfs-server
 systemctl enable nfs-server
 exportfs -v
+
 # auto-control
 vi /etc/kolla/config/nfs_shares
 storage-1:/kolla_nfs
@@ -17,8 +18,14 @@ done
 
 # deploy openstack
 ansible-playbook -i multinode prepare.yml 
-cp global.yml /etc/global.yml
-cp passsword.yml /etc/passsword.yml
+cp global.yml /etc/kolla/global.yml
+cp passsword.yml /etc/kolla/passsword.yml
+kolla-ansible -i ./multinode bootstrap-servers
+kolla-ansible -i ./multinode prechecks
+kolla-ansible -i ./multinode pull
+kolla-ansible -i ./multinode deploy
+
+# scale out openstack
 kolla-ansible -i ./multinode bootstrap-servers --limit storage
 kolla-ansible -i ./multinode prechecks --limit storage
 kolla-ansible -i ./multinode pull --limit storage
