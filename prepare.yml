@@ -12,7 +12,7 @@
     
     - name: config /etc/resolv.conf
       lineinfile:
-        path: /etc/resolve.conf
+        path: /etc/resolv.conf
         line: nameserver 8.8.8.8
 
 - hosts: storage-1
