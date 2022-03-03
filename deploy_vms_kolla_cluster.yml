@@ -12,12 +12,12 @@
         password: "{{ vcenter_password }}"
         datacenter: "{{ vcenter_datacenter }}"
         validate_certs: no
-        resource_pool: kolla
+        resource_pool: "{{ item.resource_pool }}"
         folder: /khanhchu
         name: "{{ item.name }}"
         state: poweredon
         template: centos-stream-8-kolla-1
-        esxi_hostname: 10.1.17.16
+        esxi_hostname: "{{ item.esxi_hostname }}"
         disk: "{{ item.disk }}"
         hardware:
           memory_mb: 16384

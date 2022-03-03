@@ -10,4 +10,26 @@
         src: hosts
         dest: /etc/hosts
 
+- host: storage-1
+  become: true
+  tasks:
+    - name: install nfs server
+      yum: 
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - nfs-utils
+    
+    - name: config /etc/exports
+      lineinfile:
+        path: /etc/exports
+        line: /kolla_nfs 10.1.0.0/16(rw,sync,no_root_squash)
+    
+    - name: start nfs server
+      service:
+        name: nfs-server
+        state: enabled
+        permanent: yes
+        immediate: yes
+        
       
