@@ -38,8 +38,7 @@
     - name: start nfs server
       service:
         name: nfs-server
-        state: enabled
-        permanent: yes
-        immediate: yes
+        enabled: yes
+        state: started
         
       
