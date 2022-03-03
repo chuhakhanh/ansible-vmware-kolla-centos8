@@ -1,15 +1,13 @@
 # ansible-vmware-kolla-centos8
-# storage-1
-dnf install nfs-utils
-vi /etc/exports
-/kolla_nfs 10.1.0.0/16(rw,sync,no_root_squash)
-systemctl start nfs-server
-systemctl enable nfs-server
-exportfs -v
-
 # auto-control
 vi /etc/kolla/config/nfs_shares
 storage-1:/kolla_nfs
+
+vi /etc/kolla/config/neutron/ml2_conf.ini 
+[ml2]
+tenant_network_types = vxlan,vlan
+[ml2_type_vlan]
+network_vlan_ranges = physnet1:1:4094
 
 for i in control-1 control-2 control-3 compute-1 compute-2 compute-3 storage-1 ;
 do 
@@ -23,7 +21,6 @@ cp global.yml /etc/kolla/global.yml
 cp passsword.yml /etc/kolla/passsword.yml
 kolla-ansible -i ./multinode bootstrap-servers
 kolla-ansible -i ./multinode prechecks
-kolla-ansible -i ./multinode pull
 kolla-ansible -i ./multinode deploy
 
 # scale out openstack
