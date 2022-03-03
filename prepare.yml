@@ -15,7 +15,7 @@
         path: /etc/resolve.conf
         line: nameserver 8.8.8.8
 
-- host: storage-1
+- hosts: storage-1
   become: true
   tasks:
     - name: install nfs server
