@@ -25,6 +25,11 @@
       loop:
         - nfs-utils
     
+    - name: create directory /kolla_nfs
+      directory:
+        path: /kolla_nfs
+        state: directory
+
     - name: config /etc/exports
       lineinfile:
         path: /etc/exports
