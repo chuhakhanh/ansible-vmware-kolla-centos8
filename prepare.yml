@@ -26,7 +26,7 @@
         - nfs-utils
     
     - name: create directory /kolla_nfs
-      directory:
+      file:
         path: /kolla_nfs
         state: directory
 
