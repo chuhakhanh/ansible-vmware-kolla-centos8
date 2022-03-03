@@ -9,6 +9,11 @@
       copy:
         src: hosts
         dest: /etc/hosts
+    
+    - name: config /etc/resolve.conf
+      lineinfile:
+        path: /etc/resolve.conf
+        line: nameserver 8.8.8.8
 
 - host: storage-1
   become: true
