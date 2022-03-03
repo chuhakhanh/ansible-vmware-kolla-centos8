@@ -10,7 +10,7 @@
         src: hosts
         dest: /etc/hosts
     
-    - name: config /etc/resolve.conf
+    - name: config /etc/resolv.conf
       lineinfile:
         path: /etc/resolve.conf
         line: nameserver 8.8.8.8
