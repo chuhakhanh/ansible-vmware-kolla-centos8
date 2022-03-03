@@ -17,6 +17,7 @@ do
 done
 
 # deploy openstack
+ansible-playbook deploy_vms_kolla_cluster.yml
 ansible-playbook -i multinode prepare.yml 
 cp global.yml /etc/kolla/global.yml
 cp passsword.yml /etc/kolla/passsword.yml
