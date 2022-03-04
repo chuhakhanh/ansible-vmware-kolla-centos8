@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  vars_files: env.yml
+  gather_facts: no
+  become: true
+  serial: 4
+  tasks: 
+    - name: Create a virtual machine from a template
+      community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        validate_certs: no
+        resource_pool: "{{ item.resource_pool }}"
+        folder: /khanhchu
+        name: "{{ item.name }}"
+        esxi_hostname: "{{ item.esxi_hostname }}"
+        state: absent
+        delete_from_inventory: no  
+      loop: "{{ vms }}" 
+      delegate_to: localhost
+      register: deploy
+      
