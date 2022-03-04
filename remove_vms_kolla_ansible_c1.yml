@@ -5,7 +5,7 @@
   become: true
   serial: 4
   tasks: 
-    - name: Create a virtual machine from a template
+    - name: Remove virtual machine from env
       community.vmware.vmware_guest:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
@@ -17,6 +17,7 @@
         name: "{{ item.name }}"
         esxi_hostname: "{{ item.esxi_hostname }}"
         state: absent
+        force: true
         delete_from_inventory: no  
       loop: "{{ vms }}" 
       delegate_to: localhost
