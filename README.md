@@ -12,7 +12,7 @@ done
 vi /etc/kolla/config/nfs_shares
 storage-1:/kolla_nfs
 
-vi /etc/kolla/config/neutron/ml2_conf.ini 
+cp ml2_conf.ini /etc/kolla/config/neutron/ml2_conf.ini 
 
 
 
