@@ -1,4 +1,6 @@
 # ansible-vmware-kolla-centos8
+global.basic.yml is for core services
+global.rating.yml is for core services + rating services
 
 # create VM 
 ansible-playbook deploy_vms_kolla_cluster.yml
@@ -21,6 +23,7 @@ ansible-playbook -i multinode prepare.yml
 kolla-ansible -i ./multinode bootstrap-servers
 kolla-ansible -i ./multinode prechecks
 ansible-playbook snapshot_create_vms_kolla_ansible_c1.yml
+ansible-playbook snapshot_vms_kolla_ansible_c1.yml -e "input_state=revert"
 kolla-ansible -i ./multinode deploy
 
 # scale out openstack

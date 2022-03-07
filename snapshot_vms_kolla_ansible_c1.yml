@@ -5,7 +5,7 @@
   become: true
   serial: 4
   tasks: 
-    - name: Create a snap1 snapshot 
+    - name: Operate snapshot snap1
       vmware_guest_snapshot:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
