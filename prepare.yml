@@ -14,31 +14,13 @@
       lineinfile:
         path: /etc/resolv.conf
         line: nameserver 8.8.8.8
+      
+    - name: Prepare storage nfs
+      includes_tasks: storage_nfs.yml
+      when: input_storage_plan == "nfs"
 
-- hosts: storage-1
-  become: true
-  tasks:
-    - name: install nfs server
-      yum: 
-        name: "{{ item }}"
-        state: latest
-      loop:
-        - nfs-utils
-    
-    - name: create directory /kolla_nfs
-      file:
-        path: /kolla_nfs
-        state: directory
-
-    - name: config /etc/exports
-      lineinfile:
-        path: /etc/exports
-        line: /kolla_nfs 10.1.0.0/16(rw,sync,no_root_squash)
-    
-    - name: start nfs server
-      service:
-        name: nfs-server
-        enabled: yes
-        state: started
+    - name: Prepare storage lvm
+      includes_tasks: storage_lvm.yml
+      when: input_storage_plan == "lvm"
         
       

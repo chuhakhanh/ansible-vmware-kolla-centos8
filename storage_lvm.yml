@@ -1,0 +1,17 @@
+---
+- hosts: storage-1
+  become: true
+  tasks:
+  
+  - name: New 10GB partition in /dev/vdb
+    parted:
+      device: /dev/vdb
+      number: 1
+      state: present
+      part_end: 10GB
+
+  - name: Create a volume group on top of /dev/vdb1 with physical extent size = 32MB
+    community.general.lvg:
+      vg: cinder-volumes
+      pvs: /dev/vdb1
+      pesize: 32

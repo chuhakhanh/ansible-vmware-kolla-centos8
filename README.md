@@ -18,7 +18,7 @@ storage-1:/kolla_nfs
 cp -u ml2_conf.ini /etc/kolla/config/neutron/ml2_conf.ini 
 cp -u globals.yml /etc/kolla/globals.yml
 cp -u passsword.yml /etc/kolla/passsword.yml
-ansible-playbook -i multinode prepare.yml 
+ansible-playbook -i multinode prepare.yml -e "input_storage_plan=lvm"
 # deploy openstack
 kolla-ansible -i ./multinode bootstrap-servers
 kolla-ansible -i ./multinode prechecks
