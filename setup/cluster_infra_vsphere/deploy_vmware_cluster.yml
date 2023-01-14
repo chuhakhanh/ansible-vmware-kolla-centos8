@@ -1,0 +1,53 @@
+---
+
+- name: Use specific var file
+  include_vars:
+    file: "cluster/{{lab_name}}/vmw_vms.yml"
+
+- name: Create resouce pool for student if not existence 
+  community.vmware.vmware_resource_pool:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    validate_certs: no
+    parent_resource_pool: "Cloud"     
+    resource_pool: "{{ lab_name }}"    
+    state: present
+  loop: "{{ vms }}" 
+  delegate_to: localhost  
+
+- name: Create a virtual machine from a template
+  community.vmware.vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    validate_certs: no
+    resource_pool: "{{ lab_name }}"
+    folder: "{{ vsphere_folder }}"
+    name: "{{ item.name }}"
+    state: poweredon
+    template: "{{ vsphere_template }}"
+    esxi_hostname: "{{ item.esxi_hostname }}"
+    disk: "{{ item.disk }}"
+    hardware:
+      memory_mb: "{{ item.memory_mb }}"
+      num_cpus: 2
+      num_cpu_cores_per_socket: 2
+      scsi: paravirtual
+      max_connections: 5
+      hotadd_cpu: True
+      hotremove_cpu: True
+      hotadd_memory: False
+      boot_firmware: "efi"
+    networks: "{{ item.networks }}"
+    customization:
+      dns_servers: 8.8.8.8 
+    wait_for_ip_address: true
+    wait_for_ip_address_timeout: 600
+  loop: "{{ vms }}" 
+  delegate_to: localhost
+
+
+

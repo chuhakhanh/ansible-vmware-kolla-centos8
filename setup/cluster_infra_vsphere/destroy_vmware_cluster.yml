@@ -1,0 +1,21 @@
+---
+- name: Use specific var file
+  include_vars:
+    file: "cluster/{{lab_name}}/vmw_vms.yml"
+
+- name: Remove a virtual machine from a template
+  community.vmware.vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    validate_certs: no
+    resource_pool: "{{ lab_name }}"
+    folder: "{{ vsphere_folder }}"
+    name: "{{ item.name }}"
+    state: absent
+    force: true
+  loop: "{{ vms }}" 
+  delegate_to: localhost
+
+
