@@ -5,7 +5,7 @@
   - raw_disks: sdb
   - vg_name: data
   - lv_name: lv_nfs
-  - require_lv_size: 2000gb
+  - require_lv_size: "99%VG"
   - fs: xfs
   - nfs_mount_point: /kolla_nfs
 
