@@ -106,8 +106,8 @@ For all cluster
 
 ### Provisioning Openstack for cluster with kolla-ansible
 
-    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config bootstrap-servers
-    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config prechecks
+    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config bootstrap-servers
+    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config prechecks
 
     # snapshot before run install
   
