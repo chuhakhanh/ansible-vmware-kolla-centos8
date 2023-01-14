@@ -94,17 +94,15 @@ For all cluster
         ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_app_provisioning/prepare_node_storage.yml -e "lab_name=$i"
     done
 
+    for i in lab1 
+    do
+        ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_app_provisioning/prepare_node_storage.yml -e "lab_name=$i" --start-at-task="install nfs-utils"
+    done
+
 ## Prepare kolla-ansible environment
 
     ansible-galaxy collection install community.vmware
-
-    virtualenv --python=python3 /venv_centos8
-    source /venv_centos8/bin/activate 
-    sudo pip3 install docker
-    pip3 install "kolla-ansible==9.3.2"
-    yum install libselinux-python3
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1
-    pip install python-openstackclient
+    pip3 install "kolla-ansible==13.0.2.dev104"
 
 ### Provisioning Openstack for cluster with kolla-ansible
 

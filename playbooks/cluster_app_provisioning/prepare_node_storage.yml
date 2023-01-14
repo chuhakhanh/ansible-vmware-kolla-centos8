@@ -58,7 +58,7 @@
         name: nfs-utils 
         state: latest
 
-    - name: enable rpcbind nfslock nfs
+    - name: enable rpcbind
       service:
         name: "{{ item }}"
         enabled: yes
