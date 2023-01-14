@@ -59,7 +59,7 @@ Run docker container deploy
 
     for i in lab1 
     do
-        ansible-playbook -i config/inventory_all setup/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=create" -e "lab_name=$i"
+        ansible-playbook -i config/inventory_all playbooks/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=create" -e "lab_name=$i"
     done
 
 ## Provisioning application(openstack with kolla ansible) cluster
@@ -78,17 +78,56 @@ For all cluster
     
     sshpass -p "alo1234" ssh-copy-id -f -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@10.1.17.117
     
-### Then apply OS prequisite for cluster
+### Install OS prequisite for cluster
 
 For all cluster 
 
     for i in lab1 
     do
-        ansible-playbook -i "config/cluster/$i/inventory" prepare_node_all.yml -e "lab_name=$i"
+        ansible-playbook -i "config/cluster/$i/inventory" playbooks/cluster_app_provisioning/prepare_node_all.yml -e "lab_name=$i"
     done
 
     for i in lab1 
     do
-        ansible-playbook -i "config/cluster/$i/inventory" prepare_node_storage.yml -e "lab_name=$i"
+        ansible-playbook -i "config/cluster/$i/inventory" playbooks/cluster_app_provisioning/prepare_node_storage.yml -e "lab_name=$i"
     done
-    
+
+## Prepare kolla-ansible environment
+
+    virtualenv --python=python3 /venv_centos8
+    source /venv_centos8/bin/activate 
+    sudo pip3 install docker
+    pip3 install "kolla-ansible==9.3.2"
+    yum install libselinux-python3
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1
+    pip install python-openstackclient
+
+    vi /etc/kolla/config/nfs_shares
+    storage-1:/kolla_nfs
+
+    cp -u ml2_conf.ini /etc/kolla/config/neutron/ml2_conf.ini 
+    cp -u globals.basic_setup.yml /etc/kolla/globals.yml
+    cp -u passsword.yml /etc/kolla/passsword.yml
+    cp kolla/globals.cent7.train.rating.yml kolla/globals.yml
+
+### Provisioning Openstack for cluster with kolla-ansible
+
+    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config bootstrap-servers
+    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config prechecks
+
+    # snapshot before run install
+  
+    for i in lab1 
+    do
+        ansible-playbook -i config/inventory_all playbooks/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=create_snapshot" -e "lab_name=$i"
+    done
+
+
+    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config deploy
+
+
+    # scale out openstack
+    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config bootstrap-servers --limit storage
+    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config prechecks --limit storage
+    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config pull --limit storage
+    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config deploy --limit storage
