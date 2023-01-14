@@ -1,7 +1,7 @@
 ---
 - name: Use specific var file
   include_vars:
-    file: "cluster/{{lab_name}}/vmw_vms.yml"
+    file: "../../vars/cluster/{{lab_name}}/vmw_vms.yml"
 
 - name:  Remove a snapshot snap1
   community.vmware.vmware_guest_snapshot:
