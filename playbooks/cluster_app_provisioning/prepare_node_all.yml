@@ -5,7 +5,7 @@
 
     - name: Copy host file to etc host
       copy:
-        src: "config/cluster/{{ lab_name }}/hosts"
+        src: "../../config/cluster/{{ lab_name }}/hosts"
         dest: /etc/hosts
         
     - name: Set system hostname
@@ -24,28 +24,9 @@
   
     - name: Copy repo file to etc host
       copy:
-        src: config/repos/stream8_2022_03.repo
+        src: ../../config/repos/stream8_2022_03.repo
         dest: /etc/yum.repos.d/
 
-    - name: Create a CA directory for podman if it does not exist
-      file:
-        path: /etc/containers/certs.d/repo-2.lab.example.com/
-        state: directory
-        mode: '0755'
-
-    - name: Copy CA file into 
-      get_url:
-        url: http://repo-2/config/ca.crt
-        dest: /etc/containers/certs.d/repo-2.lab.example.com/ca.crt
-        mode: '0755'
-  
-    - name: add ssl config to /etc/containers/registries.conf 
-      blockinfile:
-        path: /etc/containers/registries.conf
-        block: |
-          [[registry]]
-          location = "repo-2.lab.example.com/quayadmin/lab"
-          prefix = "registry.redhat.io"
 
 
           

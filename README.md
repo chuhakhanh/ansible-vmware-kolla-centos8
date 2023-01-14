@@ -96,6 +96,8 @@ For all cluster
 
 ## Prepare kolla-ansible environment
 
+    ansible-galaxy collection install community.vmware
+    
     virtualenv --python=python3 /venv_centos8
     source /venv_centos8/bin/activate 
     sudo pip3 install docker

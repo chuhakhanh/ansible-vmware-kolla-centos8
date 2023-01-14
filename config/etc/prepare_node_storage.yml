@@ -75,9 +75,9 @@
         group: root
         mode: 0644
 
-    - name: Create first mount point 
+    - name: Create first mount point registry
       lineinfile:
-        line: "{{ nfs_mount_point }}"
+        line: "{{ nfs_mount_point }}/registry"
         regexp: ^nfs_mount_point 
         path: /etc/exports
 

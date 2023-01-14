@@ -67,7 +67,7 @@ vms:
         device_type: vmxnet3
 
   - name: compute-1
-    esxi_hostname: 10.1.17.12
+    esxi_hostname: 10.1.0.21
     memory_mb: 65536
     disk:
     - size_gb: 50
@@ -90,7 +90,7 @@ vms:
         device_type: vmxnet3
 
   - name: compute-2
-    esxi_hostname: 10.1.17.12
+    esxi_hostname: 10.1.0.21
     memory_mb: 65536
     disk:
     - size_gb: 50
@@ -112,7 +112,7 @@ vms:
         device_type: vmxnet3
 
   - name: compute-3
-    esxi_hostname: 10.1.17.12
+    esxi_hostname: 10.1.0.21
     memory_mb: 65536
     disk:
     - size_gb: 50
@@ -134,7 +134,7 @@ vms:
         device_type: vmxnet3
 
   - name: storage-1
-    esxi_hostname: 10.1.17.12
+    esxi_hostname: 10.1.0.21
     memory_mb: 8192
     disk:
     - size_gb: 50
