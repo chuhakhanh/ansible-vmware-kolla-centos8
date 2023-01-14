@@ -102,14 +102,6 @@ For all cluster
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1
     pip install python-openstackclient
 
-    vi /etc/kolla/config/nfs_shares
-    storage-1:/kolla_nfs
-
-    cp -u ml2_conf.ini /etc/kolla/config/neutron/ml2_conf.ini 
-    cp -u globals.basic_setup.yml /etc/kolla/globals.yml
-    cp -u passsword.yml /etc/kolla/passsword.yml
-    cp kolla/globals.cent7.train.rating.yml kolla/globals.yml
-
 ### Provisioning Openstack for cluster with kolla-ansible
 
     kolla-ansible -i ./kolla/multinode --configdir ./kolla/config bootstrap-servers
@@ -127,7 +119,7 @@ For all cluster
 
 
     # scale out openstack
-    kolla-ansible -i ./kolla/multinode --configdir ./kolla-ansible/config bootstrap-servers --limit storage
-    kolla-ansible -i ./kolla/multinode --configdir ./kolla-ansible/config prechecks --limit storage
-    kolla-ansible -i ./kolla/multinode --configdir ./kolla-ansible/config pull --limit storage
-    kolla-ansible -i ./kolla/multinode --configdir ./kolla-ansible/config deploy --limit storage
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config bootstrap-servers --limit storage
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config prechecks --limit storage
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config pull --limit storage
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config deploy --limit storage
