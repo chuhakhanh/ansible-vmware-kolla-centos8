@@ -69,13 +69,13 @@ Run docker container deploy
 ### Push public ssh key into this machines due to predefined password (i=lab#)
     
     ssh-keygen
-    chmod u+x ./script/key_copy.sh
+    chmod u+x ./scripts/key_copy.sh
     
 For all cluster 
     
     for i in lab1
     do
-        ./script/key_copy.sh "config/cluster/$i/inventory"
+        ./scripts/key_copy.sh "config/cluster/$i/inventory"
     done
     
     sshpass -p "alo1234" ssh-copy-id -f -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@10.1.17.117
@@ -86,7 +86,7 @@ For all cluster
 
     for i in lab1 
     do
-        ansible-playbook -i "config/cluster/$i/inventory" playbooks/cluster_app_provisioning/prepare_node_all.yml -e "lab_name=$i"
+        ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_app_provisioning/prepare_node_all.yml -e "lab_name=$i"
     done
 
     for i in lab1 
@@ -118,10 +118,7 @@ For all cluster
         ansible-playbook -i config/inventory_all playbooks/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=create_snapshot" -e "lab_name=$i"
     done
 
-    for i in lab1 
-    do
-        ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_app_provisioning/prepare_node_all.yml
-    done
+
 
     kolla-ansible -i ./kolla/multinode --configdir ./kolla/config deploy
 
