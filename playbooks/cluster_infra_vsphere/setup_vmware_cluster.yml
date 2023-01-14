@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-  vars_files: vars/vmw_env.yml
+  vars_files: ../../vars/vmw_env.yml
   gather_facts: no
   become: true
   serial: 4

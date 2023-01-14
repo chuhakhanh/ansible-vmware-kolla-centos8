@@ -7,7 +7,7 @@
 
 ### Description
 
-    This setup is aim to provision for multiple lab environment for varies tests. 
+    This setup is aim to provision for multiple lab environment for various tests. 
 
     deploy-1 is a VM server for deployment with Docker containers. Container deploy-1 with ansible is used to run Ansible Playbook from sources.
 
@@ -45,6 +45,8 @@ Run docker container deploy
     yum install tmux
 
 ### Create a virtual machine cluster
+
+    cp -f config/cluster/lab1/hosts /etc/hosts
 
     docker exec -it deploy-1 -u0 /bin/bash;
     git clone https://github.com/chuhakhanh/ansible-vmware-kolla-centos8
