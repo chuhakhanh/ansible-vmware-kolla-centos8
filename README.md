@@ -112,8 +112,8 @@ For all cluster
 
 ### Provisioning Openstack for cluster with kolla-ansible
 
-    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config bootstrap-servers
-    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config prechecks
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config bootstrap-servers
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config prechecks
 
     # snapshot before run install
   
@@ -123,11 +123,11 @@ For all cluster
     done
 
 
-    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config deploy
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config deploy
 
 
     # scale out openstack
-    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config bootstrap-servers --limit storage
-    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config prechecks --limit storage
-    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config pull --limit storage
-    kolla-ansible -i ./kolla-ansible/environments/multinode --configdir ./kolla-ansible/config deploy --limit storage
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla-ansible/config bootstrap-servers --limit storage
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla-ansible/config prechecks --limit storage
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla-ansible/config pull --limit storage
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla-ansible/config deploy --limit storage
