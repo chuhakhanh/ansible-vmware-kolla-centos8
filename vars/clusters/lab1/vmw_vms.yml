@@ -1,0 +1,43 @@
+# VMware vsphere virtual machines(vms) vars
+vms:
+  - name: lab1-clienta
+    esxi_hostname: 10.101.101.12
+    disk:
+    - size_gb: 30
+      type: thin
+      datastore: SSD-PCI-01
+    
+    - size_gb: 10
+      type: thin
+      datastore: SSD-PCI-01
+
+    - size_gb: 10
+      type: thin
+      datastore: SSD-PCI-01
+    
+    - size_gb: 10
+      type: thin
+      datastore: SSD-PCI-01
+
+    - size_gb: 10
+      type: thin
+      datastore: SSD-PCI-01
+    
+    - size_gb: 10
+      type: thin
+      datastore: SSD-PCI-01
+      
+    networks:
+      - name: LABSYSTEM_vnet_04
+        ip: 172.11.0.11
+        netmask: 255.255.255.0
+        gateway: 172.11.0.1
+        device_type: vmxnet3
+
+      - name: LABSYSTEM_vnet_05
+        ip: 172.12.0.11
+        netmask: 255.255.255.0
+        device_type: vmxnet3
+
+ 
+

@@ -1,0 +1,20 @@
+---
+- name: Use specific var file
+  include_vars:
+    file: "clusters/{{lab_name}}/vmw_vms.yml"
+
+- name:  Remove a snapshot snap1
+  community.vmware.vmware_guest_snapshot:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    validate_certs: no
+    folder: "{{ vsphere_folder }}"
+    name: "{{ item.name }}"
+    state: absent
+    snapshot_name: snap1
+  loop: "{{ vms }}" 
+  delegate_to: localhost
+
+

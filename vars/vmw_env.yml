@@ -1,0 +1,9 @@
+# VMware vsphere vars
+vcenter_hostname: 10.1.0.23
+vcenter_username: administrator@vsphere.local
+vcenter_password: Changeme@123
+vcenter_datacenter: SVTECH_HN
+vsphere_folder: cloud_team
+vsphere_template: centos-stream-8-kolla-1
+
+ 

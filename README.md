@@ -1,47 +1,121 @@
-# ansible-vmware-kolla-centos8
-global.basic.yml is for core services
-global.rating.yml is for core services + rating services
+# vmware-ceph-rhcs-5
 
-# create VM 
-ansible-playbook deploy_vms_kolla_cluster.yml
-ansible-playbook remove_vms_kolla_ansible_c1.yml
 
-# prepare openstack environment
-for i in control-1 control-2 control-3 compute-1 compute-2 compute-3 storage-1 ;
-do 
-  ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@$i ; 
-done
 
-vi /etc/kolla/config/nfs_shares
-storage-1:/kolla_nfs
+## Introduction
 
-cp -u ml2_conf.ini /etc/kolla/config/neutron/ml2_conf.ini 
-cp -u globals.yml /etc/kolla/globals.yml
-cp -u passsword.yml /etc/kolla/passsword.yml
-ansible-playbook -i multinode prepare.yml -e "input_storage_plan=lvm"
-# deploy openstack
-kolla-ansible -i ./multinode bootstrap-servers
-kolla-ansible -i ./multinode prechecks
-ansible-playbook snapshot_create_vms_kolla_ansible_c1.yml
-ansible-playbook snapshot_vms_kolla_ansible_c1.yml -e "input_state=revert"
-kolla-ansible -i ./multinode deploy
+# Reference
 
-# scale out openstack
-kolla-ansible -i ./multinode bootstrap-servers --limit storage
-kolla-ansible -i ./multinode prechecks --limit storage
-kolla-ansible -i ./multinode pull --limit storage
-kolla-ansible -i ./multinode deploy --limit storage
 
-# openstack
-. /etc/kolla/admin-openrc-c1.sh
-openstack image create "cirros" --file /root/cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --public
-openstack flavor create --id 1 --ram 1024 --disk 1  --vcpu 1 tiny
-openstack flavor create --id 2 --ram 4096 --disk 10 --vcpu 2 small
-openstack flavor create --id 4 --ram 8096 --disk 50 --vcpu 2 medium
-openstack network create --share --provider-physical-network physnet1 --provider-network-type vlan --provider-segment=111 pro-vlan111
-openstack subnet create --subnet-range 10.1.0.0/16 --gateway 10.1.0.1 --network pro-vlan111 --allocation-pool start=10.1.17.130,end=10.1.17.150 pro-vlan111-subnet1
-openstack network create --share --provider-physical-network physnet1 --provider-network-type vlan --provider-segment=126 pro-vlan126
-openstack subnet create --subnet-range 192.168.126.0/24 --gateway 192.168.126.1 --network pro-vlan126 --allocation-pool start=192.168.126.130,end=192.168.126.150 pro-vlan126-subnet1
-net-id-pro-vlan111='openstack network list | grep pro-vlan111 | cut -f2 -d"|"'
-openstack server create --flavor 1 --image cirros --nic net-id=96448280-519e-4173-a198-ee0b18d66f02 inst1
-openstack server create --flavor 1 --image cirros --nic net-id=$net-id-pro-vlan111 inst1
+# Description
+
+Lab environment is provisioning for 10 people. Each people will use a resource pool with the same name. 
+
+deploy-1 is a deploy server, which contains preconfigured container to run ansible playbook
+repo-2 is a webserver contains, QuayIO server:
+- config/ : configuration files
+- 2022_07/<repo ID>: repository 
+- :443/ : images to deploy
+
+172.11.0.0/24
+172.12.0.0/24
+
+## Setup cluster
+
+### Prepare the template Virtual machine
+
+    Edit Settings>VM Options>Advanced>Edit Configuration in Configuration Parameters>Add parameter
+    disk.EnableUUID = TRUE
+          
+### Deploy virtual machines cluster
+
+From repo-1 export images
+
+    docker save -o centos-source-deploy.tar 4b4369be8793
+
+From deploy-1 
+Create a Virtual machine cluster 
+
+    podman load -i centos-source-deploy.tar
+    podman run -d --name deploy-2 4b4369be8793
+    podman exec -it deploy-2 /bin/bash; 
+    vi ~/.bashrc 
+    alias ll='ls -lG'
+    dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
+    yum install sshpass
+    yum install tmux
+
+    
+    docker exec -it deploy-2 -u0 /bin/bash;
+    git clone https://github.com/chuhakhanh/vmware-ceph-rhcs-5
+    cd /root/vmware-ceph-rhcs-5
+    git checkout lab-9-2022
+
+    ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=create" -e "lab_name=lab1"
+    ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=destroy" -e "lab_name=lab1"
+    ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=poweroff" -e "lab_name=lab15"
+    ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=poweron" -e "lab_name=lab15"
+    ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=create_snapshot" -e "lab_name=lab15"
+    ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=remove_snapshot" -e "lab_name=lab15"
+
+    for i in lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab8 lab9 lab10 lab11 lab12 lab13 lab14
+    do
+        ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=create" -e "lab_name=$i"
+    done
+
+### Push public ssh key into this machines due to predefined password (i=lab#)
+    
+    ssh-keygen
+    chmod u+x ./script/key_copy.sh
+    
+For all cluster 
+    
+    for i in lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab8 lab9 lab10 lab11 lab12 lab13 lab14
+    do
+        ./script/key_copy.sh config/inventory/$i
+    done
+    
+For 1 cluster     
+
+    for i in lab15
+    do
+        chmod u+x ./script/key_copy.sh; ./script/key_copy.sh config/inventory/$i
+    done
+    
+    sshpass -p "alo1234" ssh-copy-id -f -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@10.1.17.117
+    
+### Then apply prequisite for virual machines
+
+For all cluster 
+
+    for i in lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab8 lab9 lab10 lab11 lab12 lab13 lab14
+    do
+        ansible-playbook -i config/inventory/$i prepare_vmware_cluster.yml -e "lab_name=$i"
+    done
+
+For 1 cluster 
+
+    for i in lab15
+    do
+        ansible-playbook -i config/inventory/$i prepare_vmware_cluster.yml -e "lab_name=$i"
+    done
+
+
+### Fully provisioning all lab
+
+    for i in lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab8 lab9 lab10
+    do
+        ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=create" -e "lab_name=$i"
+        chmod u+x ./script/key_copy.sh; ./script/key_copy.sh config/inventory/$i
+        ansible-playbook -i config/inventory/$i prepare_vmware_cluster.yml -e "lab_name=$i"
+    done
+    
+
+### Configure quayio as default insecure local registry 
+
+Check local quayio
+
+    podman login repo-2.lab.example.com --username quayadmin --password password
+    podman system info
+
+[Following steps in docs/gudie.md to work on ceph cluster](docs/guide.md)
