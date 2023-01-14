@@ -97,7 +97,7 @@ For all cluster
 ## Prepare kolla-ansible environment
 
     ansible-galaxy collection install community.vmware
-    
+
     virtualenv --python=python3 /venv_centos8
     source /venv_centos8/bin/activate 
     sudo pip3 install docker
@@ -118,6 +118,10 @@ For all cluster
         ansible-playbook -i config/inventory_all playbooks/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=create_snapshot" -e "lab_name=$i"
     done
 
+    for i in lab1 
+    do
+        ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_app_provisioning/prepare_node_all.yml
+    done
 
     kolla-ansible -i ./kolla/multinode --configdir ./kolla/config deploy
 
