@@ -64,8 +64,6 @@
         enabled: yes
       with_items:
         - rpcbind
-        - nfslock
-        - nfs
 
     - name: Copy exports file.
       template:
