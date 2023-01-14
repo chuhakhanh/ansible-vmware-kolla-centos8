@@ -10,7 +10,7 @@
         
     - name: Set system hostname
       shell: |
-        hostnamectl set-hostname "grep {{ inventory_hostname }} /etc/hosts | cut -d ' ' -f 3"
+        hostnamectl set-hostname 'grep {{ inventory_hostname }} /etc/hosts | cut -d " " -f 3'
   
     - name: Create a backup directory if it does not exist
       file:

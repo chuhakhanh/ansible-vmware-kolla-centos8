@@ -91,7 +91,7 @@ For all cluster
 
     for i in lab1 
     do
-        ansible-playbook -i "config/cluster/$i/inventory" playbooks/cluster_app_provisioning/prepare_node_storage.yml -e "lab_name=$i"
+        ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_app_provisioning/prepare_node_storage.yml -e "lab_name=$i"
     done
 
 ## Prepare kolla-ansible environment
