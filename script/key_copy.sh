@@ -1,7 +1,7 @@
 #!/bin/bash
 filename=$1
 while read line; do
-# reading each line
+# reading each line, ignore line with brackets
     if [[ $line =~ ^\[ ]]; then
         action=$(echo $line |tail -c +2 | head -c -2)
     else

@@ -1,67 +1,68 @@
-# vmware-ceph-rhcs-5
-
-
+# ansible-vmware-kolla-centos8
 
 ## Introduction
 
-# Reference
+### Reference
 
 
-# Description
+### Description
 
-Lab environment is provisioning for 10 people. Each people will use a resource pool with the same name. 
+    This setup is aim to provision for multiple lab environment for varies tests. 
 
-deploy-1 is a deploy server, which contains preconfigured container to run ansible playbook
-repo-2 is a webserver contains, QuayIO server:
-- config/ : configuration files
-- 2022_07/<repo ID>: repository 
-- :443/ : images to deploy
+    deploy-1 is a VM server for deployment with Docker containers. Container deploy-1 with ansible is used to run Ansible Playbook from sources.
 
-172.11.0.0/24
-172.12.0.0/24
+    repo-1 is a repository server with a httpd Package Repository, a docker registry  
 
-## Setup cluster
+## Setup VMware vsphere infrastructure cluster
 
-### Prepare the template Virtual machine
+### Prepare template 
+
+    https://opendev.org/openstack/nova/commit/2a6bdf8f0e0e22fc7703faa9669ace7380dc73c3
+    VMware: Enable disk.EnableUUID=True in vmx
+    Currently there is no link in /dev/disk/by-id for SCSI (sdx) devices because by default VMWare doesn't provide information needed by udev to generate /dev/disk/by-id. When this specific parameter disk.EnableUUID
+    is set to True in vmx file inside the guest vm /dev/disk/by-id shows a link to UUID of the attached SCSI device
 
     Edit Settings>VM Options>Advanced>Edit Configuration in Configuration Parameters>Add parameter
     disk.EnableUUID = TRUE
           
-### Deploy virtual machines cluster
+### Prepare provisioning VM deploy-1
 
 From repo-1 export images
 
     docker save -o centos-source-deploy.tar 4b4369be8793
 
 From deploy-1 
-Create a Virtual machine cluster 
+
+Run docker container deploy
 
     podman load -i centos-source-deploy.tar
-    podman run -d --name deploy-2 4b4369be8793
-    podman exec -it deploy-2 /bin/bash; 
+    podman run -d --name deploy-1 4b4369be8793
+    podman exec -it deploy-1 /bin/bash; 
     vi ~/.bashrc 
     alias ll='ls -lG'
     dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
     yum install sshpass
     yum install tmux
 
-    
-    docker exec -it deploy-2 -u0 /bin/bash;
-    git clone https://github.com/chuhakhanh/vmware-ceph-rhcs-5
-    cd /root/vmware-ceph-rhcs-5
-    git checkout lab-9-2022
+### Create a virtual machine cluster
 
-    ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=create" -e "lab_name=lab1"
-    ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=destroy" -e "lab_name=lab1"
-    ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=poweroff" -e "lab_name=lab15"
-    ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=poweron" -e "lab_name=lab15"
-    ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=create_snapshot" -e "lab_name=lab15"
-    ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=remove_snapshot" -e "lab_name=lab15"
+    docker exec -it deploy-1 -u0 /bin/bash;
+    git clone https://github.com/chuhakhanh/ansible-vmware-kolla-centos8
+    cd /root/ansible-vmware-kolla-centos8
+    git checkout poc-cgnat
 
-    for i in lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab8 lab9 lab10 lab11 lab12 lab13 lab14
+    -e "action=destroy" -e "lab_name=lab1"
+    -e "action=poweroff" -e "lab_name=lab15"
+    -e "action=poweron" -e "lab_name=lab15"
+    -e "action=create_snapshot" -e "lab_name=lab15"
+    -e "action=remove_snapshot" -e "lab_name=lab15"
+
+    for i in lab1 
     do
-        ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=create" -e "lab_name=$i"
+        ansible-playbook -i config/inventory_all setup/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=create" -e "lab_name=$i"
     done
+
+## Provisioning application(openstack with kolla ansible) cluster
 
 ### Push public ssh key into this machines due to predefined password (i=lab#)
     
@@ -70,52 +71,24 @@ Create a Virtual machine cluster
     
 For all cluster 
     
-    for i in lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab8 lab9 lab10 lab11 lab12 lab13 lab14
+    for i in lab1
     do
-        ./script/key_copy.sh config/inventory/$i
-    done
-    
-For 1 cluster     
-
-    for i in lab15
-    do
-        chmod u+x ./script/key_copy.sh; ./script/key_copy.sh config/inventory/$i
+        ./script/key_copy.sh "config/cluster/$i/inventory"
     done
     
     sshpass -p "alo1234" ssh-copy-id -f -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@10.1.17.117
     
-### Then apply prequisite for virual machines
+### Then apply OS prequisite for cluster
 
 For all cluster 
 
-    for i in lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab8 lab9 lab10 lab11 lab12 lab13 lab14
+    for i in lab1 
     do
-        ansible-playbook -i config/inventory/$i prepare_vmware_cluster.yml -e "lab_name=$i"
+        ansible-playbook -i "config/cluster/$i/inventory" prepare_node_all.yml -e "lab_name=$i"
     done
 
-For 1 cluster 
-
-    for i in lab15
+    for i in lab1 
     do
-        ansible-playbook -i config/inventory/$i prepare_vmware_cluster.yml -e "lab_name=$i"
-    done
-
-
-### Fully provisioning all lab
-
-    for i in lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab8 lab9 lab10
-    do
-        ansible-playbook -i config/inventory/lab setup_vmware_cluster.yml -e "action=create" -e "lab_name=$i"
-        chmod u+x ./script/key_copy.sh; ./script/key_copy.sh config/inventory/$i
-        ansible-playbook -i config/inventory/$i prepare_vmware_cluster.yml -e "lab_name=$i"
+        ansible-playbook -i "config/cluster/$i/inventory" prepare_node_storage.yml -e "lab_name=$i"
     done
     
-
-### Configure quayio as default insecure local registry 
-
-Check local quayio
-
-    podman login repo-2.lab.example.com --username quayadmin --password password
-    podman system info
-
-[Following steps in docs/gudie.md to work on ceph cluster](docs/guide.md)

@@ -1,15 +1,12 @@
-vcenter_hostname: 10.1.17.41
-vcenter_username: administrator@vsphere.local
-vcenter_password: Admin@123
-vcenter_datacenter: Datacenter
+# VMware vsphere virtual machines(vms) vars
 vms:
   - name: control-1
-    esxi_hostname: 10.1.17.16
-    resource_pool: c1-kolla-ops-centos8
+    esxi_hostname: 10.1.0.21
+    memory_mb: 8192
     disk:
     - size_gb: 50
       type: thin
-      datastore: node6-sata1
+      datastore: 10.1.0.21-hdd1
     networks:
       - name: vlan_111
         ip: 10.1.17.51
@@ -26,12 +23,12 @@ vms:
         device_type: vmxnet3
 
   - name: control-2
-    esxi_hostname: 10.1.17.16
-    resource_pool: c1-kolla-ops-centos8
+    esxi_hostname: 10.1.0.21
+    memory_mb: 8192
     disk:
     - size_gb: 50
       type: thin
-      datastore: node6-sata1
+      datastore: 10.1.0.21-hdd1
     networks:
       - name: vlan_111
         ip: 10.1.17.52
@@ -48,12 +45,12 @@ vms:
         device_type: vmxnet3
 
   - name: control-3
-    esxi_hostname: 10.1.17.16
-    resource_pool: c1-kolla-ops-centos8
+    esxi_hostname: 10.1.0.21
+    memory_mb: 8192
     disk:
     - size_gb: 50
       type: thin
-      datastore: node6-sata1
+      datastore: 10.1.0.21-hdd1
     networks:
       - name: vlan_111
         ip: 10.1.17.53
@@ -71,11 +68,11 @@ vms:
 
   - name: compute-1
     esxi_hostname: 10.1.17.12
-    resource_pool: c1-kolla-ops-centos8
+    memory_mb: 65536
     disk:
     - size_gb: 50
       type: thin
-      datastore: node2-ssd1
+      datastore: 10.1.0.21-hdd1
     
     networks:
       - name: vlan_111
@@ -94,11 +91,11 @@ vms:
 
   - name: compute-2
     esxi_hostname: 10.1.17.12
-    resource_pool: c1-kolla-ops-centos8
+    memory_mb: 65536
     disk:
     - size_gb: 50
       type: thin
-      datastore: node2-ssd1
+      datastore: 10.1.0.21-hdd1
     networks:
       - name: vlan_111
         ip: 10.1.17.55
@@ -116,11 +113,11 @@ vms:
 
   - name: compute-3
     esxi_hostname: 10.1.17.12
-    resource_pool: c1-kolla-ops-centos8
+    memory_mb: 65536
     disk:
     - size_gb: 50
       type: thin
-      datastore: node2-ssd1
+      datastore: 10.1.0.21-hdd1
     networks:
       - name: vlan_111
         ip: 10.1.17.56
@@ -138,15 +135,15 @@ vms:
 
   - name: storage-1
     esxi_hostname: 10.1.17.12
-    resource_pool: c1-kolla-ops-centos8
+    memory_mb: 8192
     disk:
     - size_gb: 50
       type: thin
-      datastore: node2-sata1
+      datastore: 10.1.0.21-hdd1
 
-    - size_gb: 50
+    - size_gb: 2048
       type: thin
-      datastore: node2-hdd1
+      datastore: ssd02
 
     networks:
       - name: vlan_111
@@ -162,3 +159,6 @@ vms:
         ip: 192.168.126.57
         netmask: 255.255.255.0
         device_type: vmxnet3
+
+ 
+
