@@ -1,0 +1,71 @@
+[AppStream]
+name=Stream 8 - AppStream
+baseurl=http://repo-1/2022_03/centos/8-stream/appstream/
+enabled=1
+gpgcheck=0
+
+[BaseOS]
+name=Stream 8 - BaseOS
+baseurl=http://repo-1/2022_03/centos/8-stream/baseos/
+enabled=1
+gpgcheck=0
+
+[powertools]
+name=Stream 8 - PowerTools
+baseurl=http://repo-1/2022_03/centos/8-stream/powertools/
+enabled=1
+gpgcheck=0
+
+[Extras]
+name=Stream 8 - Extras
+baseurl=http://repo-1/2022_03/centos/8-stream/extras/
+enabled=1
+gpgcheck=0
+
+[Docker-CE-Stable]
+name=Docker CE - Stable
+baseurl=http://repo-1/2022_03/docker/docker-ce-stable/
+enabled=1
+gpgcheck=0
+
+[Docker]
+name=Docker 
+baseurl=http://repo-1/2022_03/docker/docker
+enabled=1
+gpgcheck=0
+
+[epel-8]
+name=EPEL 8
+baseurl=http://10.1.17.33/2022_03/epel/8/Everything/x86_64/
+enabled=0
+
+[centos-advanced-virtualization]
+name=CentOS-8 - Advanced Virtualization
+baseurl=http://repo-1/2022_03/centos/8/centos-advanced-virtualization
+enabled=1
+gpgcheck=0
+
+[centos-ceph-pacific]
+name=CentOS-8-stream - Ceph Pacific
+baseurl=http://repo-1/2022_03/centos/8/centos-ceph-pacific           
+enabled=1
+gpgcheck=0
+
+[centos-nfv-openvswitch]
+name=CentOS-8 - NFV OpenvSwitch
+baseurl=http://repo-1/2022_03/centos/8/centos-nfv-openvswitch        
+enabled=1
+gpgcheck=0
+
+[centos-openstack-xena]
+module_hotfixes=1 
+name=CentOS-8 - OpenStack xena
+baseurl=http://repo-1/2022_03/centos/8/centos-openstack-xena         
+enabled=1
+gpgcheck=0
+
+[centos-rabbitmq-38]
+name=CentOS-8 - RabbitMQ 38
+baseurl=http://repo-1/2022_03/centos/8/centos-rabbitmq-38            
+enabled=1
+gpgcheck=0

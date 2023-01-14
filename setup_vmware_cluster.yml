@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  vars_files: vars/vmw_env.yml
+  gather_facts: no
+  become: true
+  serial: 4
+  tasks:     
+    - name: Deploy the cluster on VMware environment
+      include: deploy_vmware_cluster.yml
+      when: action == "create"
+
+    - name: Destroy the cluster on VMware environment
+      include: destroy_vmware_cluster.yml
+      when: action == "destroy"
+
+    - name: Poweroff the cluster on VMware environment
+      include: poweroff_vmware_cluster.yml
+      when: action == "poweroff"
+
+    - name: Poweron the cluster on VMware environment
+      include: poweron_vmware_cluster.yml
+      when: action == "poweron"
+
+    - name: Create snapshot snap1 on all VM in the cluster on VMware environment
+      include: create_snapshot_vmware_cluster.yml
+      when: action == "create_snapshot"
+
+    - name: Remove snapshot snap1 on all VM in the cluster on VMware environment
+      include: remove_snapshot_vmware_cluster.yml
+      when: action == "remove_snapshot"
+      

@@ -1,0 +1,24 @@
+[ansible-2.9-for-rhel-8-x86_64-rpms]
+name=Red Hat Ansible Engine 2.9 for RHEL 8 x86_64 (RPMs)
+baseurl=http://repo-2/2022_07/ansible/2.9/
+enabled=1
+gpgcheck=0
+
+[rhceph-5-tools-for-rhel-8-x86_64-rpms]
+name=Red Hat Ceph Storage Tools 5 for RHEL 8 x86_64 (RPMs)
+baseurl=http://repo-2/2022_07/ceph/5/
+enabled=1
+gpgcheck=0
+
+[rhel-8-for-x86_64-appstream-rpms]
+name=Red Hat Enterprise Linux 8 for x86_64 - AppStream (RPMs)
+baseurl=http://repo-2/2022_07/rhel/8.5/appstream
+enabled=1
+gpgcheck=0
+
+[rhel-8-for-x86_64-baseos-rpms]
+name=Red Hat Enterprise Linux 8 for x86_64 - BaseOS (RPMs)
+baseurl=http://repo-2/2022_07/rhel/8.5/baseos
+enabled=1
+gpgcheck=0
+
