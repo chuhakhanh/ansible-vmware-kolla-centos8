@@ -75,7 +75,7 @@
 
     - name: Create first mount point 
       lineinfile:
-        line: "{{ nfs_mount_point }}"
+        line: "{{ nfs_mount_point }} *(rw,sync,no_root_squash,no_subtree_check)"
         regexp: ^nfs_mount_point 
         path: /etc/exports
 
