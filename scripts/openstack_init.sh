@@ -1,6 +1,7 @@
 # openstack
 . /etc/kolla/admin-openrc-c1.sh
-openstack image create "cirros" --file /root/cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --public
+wget https://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img
+openstack image create "cirros" --file ./cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --public
 openstack flavor create --id 1 --ram 1024 --disk 1  --vcpu 1 tiny
 openstack flavor create --id 2 --ram 4096 --disk 10 --vcpu 2 small
 openstack flavor create --id 4 --ram 8096 --disk 50 --vcpu 2 medium
