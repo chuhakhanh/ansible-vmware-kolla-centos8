@@ -53,12 +53,6 @@ Run docker container deploy
     cd /root/ansible-vmware-kolla-centos8
     git checkout poc-cgnat
 
-    -e "action=destroy" -e "lab_name=lab1"
-    -e "action=poweroff" -e "lab_name=lab15"
-    -e "action=poweron" -e "lab_name=lab15"
-    -e "action=create_snapshot" -e "lab_name=lab15"
-    -e "action=remove_snapshot" -e "lab_name=lab15"
-
     for i in lab1 
     do
         ansible-playbook -i config/inventory_all playbooks/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=create" -e "lab_name=$i"
@@ -109,17 +103,9 @@ For all cluster
     kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config bootstrap-servers
     kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config prechecks
 
-    # snapshot before run install
+Snapshot virtual machine cluster before run install 
+    [Following steps in docs/gudie.md to work on ceph cluster](docs/guide.md)
   
-    for i in lab1 
-    do
-        ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=create_snapshot" -e "lab_name=$i"
-    done
-
-    for i in lab1 
-    do
-        ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=revert_snapshot" -e "lab_name=$i"
-    done
 
     kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config deploy
     kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config pull
