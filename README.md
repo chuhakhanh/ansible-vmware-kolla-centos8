@@ -4,7 +4,9 @@
 
 ### Reference
 
-
+    https://www.keepcalmandrouteon.com/post/kolla-os-part-2/
+    https://docs.openstack.org/kolla-ansible/latest/reference/storage/cinder-guide.html
+    https://jamesbenson.weebly.com/blog/deploying-openstack-kolla-ocata
 ### VM 
 
     This setup is aim to provision for multiple lab environment for various tests. 
@@ -86,46 +88,38 @@ For all cluster
         ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_app_provisioning/prepare_node_all.yml -e "lab_name=$i"
     done
 
+Configure storage node, in this case we use NFS 
+
     for i in lab1 
     do
         ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_app_provisioning/prepare_node_storage.yml -e "lab_name=$i"
     done
 
-    for i in lab1 
-    do
-        ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_app_provisioning/prepare_node_storage.yml -e "lab_name=$i" --start-at-task="install nfs-utils"
-    done
-
 ## Prepare kolla-ansible environment
+
+Prepare kolla-ansible
 
     ansible-galaxy collection install community.vmware
     pip3 install "kolla-ansible==13.0.2.dev104"
 
-### Provisioning Openstack for cluster with kolla-ansible
+Prepare images ([Following steps in other gudie setup local repo ](https://github.com/chuhakhanh/local-repo-centos-stream8/Readme.md))
 
-    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/ bootstrap-servers
-    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/ prechecks
+## Provisioning Openstack for cluster with kolla-ansible
+
+### Prepare snapshot
 
 Snapshot virtual machine cluster before run install 
-    [Following steps in docs/gudie.md to work on ceph cluster](docs/guide.md)
-  
+    [Following steps in docs/guide.md to operate the cluster](docs/guide.md)
+
+### Deploy Openstack
 
 There may be a bug that I cannot use a specific config_dir as below command become failed
     kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config deploy
-
 So that use node_config as default : /etc/kolla (https://github.com/openstack/kolla-ansible/blob/master/ansible/group_vars/all.yml) to deploy
 
     cp -r ./config/kolla/ /etc/
+    kolla-ansible -i ./config/kolla/multinode pull
+    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/ bootstrap-servers
+    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/ prechecks
     kolla-ansible -i ./config/kolla/multinode deploy
 
-Create source file
-
-    kolla-ansible post-deploy
-    . /etc/kolla/admin-openrc.sh
-    ./scripts/init-runonce.sh 10.1.17.150 10.1.17.180
-
-    # scale out openstack
-    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config bootstrap-servers --limit storage
-    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config prechecks --limit storage
-    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config pull --limit storage
-    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config deploy --limit storage

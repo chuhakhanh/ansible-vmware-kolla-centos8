@@ -50,10 +50,6 @@ Run playbook at task
 ## application cluster
 ### operation
 
-
-
-
-
 scale out openstack
 
     kolla-ansible -i ./kolla/multinode --configdir ./kolla/config bootstrap-servers --limit storage
