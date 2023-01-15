@@ -100,8 +100,8 @@ For all cluster
 
 ### Provisioning Openstack for cluster with kolla-ansible
 
-    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config bootstrap-servers
-    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config prechecks
+    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/ bootstrap-servers
+    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/ prechecks
 
 Snapshot virtual machine cluster before run install 
     [Following steps in docs/gudie.md to work on ceph cluster](docs/guide.md)
