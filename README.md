@@ -5,14 +5,17 @@
 ### Reference
 
 
-### Description
+### VM 
 
     This setup is aim to provision for multiple lab environment for various tests. 
-
     deploy-1 is a VM server for deployment with Docker containers. Container deploy-1 with ansible is used to run Ansible Playbook from sources.
-
     repo-1 is a repository server with a httpd Package Repository, a docker registry  
 
+### Folder 
+    
+    config: store on all configuration
+    config/kolla: the node_config directory for Kolla Ansible ( default /etc/kolla)
+    
 ## Setup VMware vsphere infrastructure cluster
 
 ### Prepare template 
@@ -107,9 +110,19 @@ Snapshot virtual machine cluster before run install
     [Following steps in docs/gudie.md to work on ceph cluster](docs/guide.md)
   
 
+There may be a bug that I cannot use a specific config_dir as below command become failed
     kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config deploy
-    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config pull
 
+So that use node_config as default : /etc/kolla (https://github.com/openstack/kolla-ansible/blob/master/ansible/group_vars/all.yml) to deploy
+
+    cp -r ./config/kolla/ /etc/
+    kolla-ansible -i ./config/kolla/multinode deploy
+
+Create source file
+
+    kolla-ansible post-deploy
+    . /etc/kolla/admin-openrc.sh
+    ./scripts/init-runonce.sh 10.1.17.150 10.1.17.180
 
     # scale out openstack
     kolla-ansible -i ./kolla/multinode --configdir ./kolla/config bootstrap-servers --limit storage

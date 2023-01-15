@@ -40,3 +40,23 @@ Power on all VM
         ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=destroy" -e "lab_name=$i"
     done
 
+Run playbook at task 
+
+    for i in lab1 
+    do
+        ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_app_provisioning/prepare_node_storage.yml -e "lab_name=$i" --start-at-task="install nfs-utils"
+    done    
+
+## application cluster
+### operation
+
+
+
+
+
+scale out openstack
+
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config bootstrap-servers --limit storage
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config prechecks --limit storage
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config pull --limit storage
+    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config deploy --limit storage

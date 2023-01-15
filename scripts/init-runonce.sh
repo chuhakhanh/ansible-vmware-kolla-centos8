@@ -26,9 +26,9 @@ IMAGE_TYPE=linux
 
 # This EXT_NET_CIDR is your public network,that you want to connect to the internet via.
 ENABLE_EXT_NET=${ENABLE_EXT_NET:-1}
-EXT_NET_CIDR=${EXT_NET_CIDR:-'172.12.0.0/16'}
+EXT_NET_CIDR=${EXT_NET_CIDR:-'10.1.0.0/16'}
 EXT_NET_RANGE=${EXT_NET_RANGE:-'start='$1,'end='$2}
-EXT_NET_GATEWAY=${EXT_NET_GATEWAY:-'172.12.0.1'}
+EXT_NET_GATEWAY=${EXT_NET_GATEWAY:-'10.1.0.1'}
 
 # Sanitize language settings to avoid commands bailing out
 # with "unsupported locale setting" errors.
@@ -81,13 +81,14 @@ echo Configuring neutron.
 $KOLLA_OPENSTACK_COMMAND router create demo-router
 
 $KOLLA_OPENSTACK_COMMAND network create demo-net
-$KOLLA_OPENSTACK_COMMAND subnet create --subnet-range 10.0.0.0/24 --network demo-net \
-    --gateway 10.0.0.1 --dns-nameserver 8.8.8.8 demo-subnet
+$KOLLA_OPENSTACK_COMMAND subnet create --subnet-range 192.168.126.0/24 --network demo-net \
+    --gateway 192.168.126.1 --dns-nameserver 8.8.8.8 demo-subnet
 $KOLLA_OPENSTACK_COMMAND router add subnet demo-router demo-subnet
 
 if [[ $ENABLE_EXT_NET -eq 1 ]]; then
-    $KOLLA_OPENSTACK_COMMAND network create --external --provider-physical-network physnet1 \
-        --provider-network-type flat public1
+    $KOLLA_OPENSTACK_COMMAND network create --share --external --provider-physical-network physnet1 \
+        --provider-network-type vlan --provider-segment=111 public1
+        
     $KOLLA_OPENSTACK_COMMAND subnet create --no-dhcp \
         --allocation-pool ${EXT_NET_RANGE} --network public1 \
         --subnet-range ${EXT_NET_CIDR} --gateway ${EXT_NET_GATEWAY} public1-subnet
