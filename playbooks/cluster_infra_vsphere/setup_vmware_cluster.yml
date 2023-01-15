@@ -29,3 +29,7 @@
       include: remove_snapshot_vmware_cluster.yml
       when: action == "remove_snapshot"
       
+    - name: Remove snapshot snap1 on all VM in the cluster on VMware environment
+      include: revert_snapshot_vmware_cluster.yml
+      when: action == "revert_snapshot"
+      

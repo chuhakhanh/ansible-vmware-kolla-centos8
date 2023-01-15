@@ -113,12 +113,16 @@ For all cluster
   
     for i in lab1 
     do
-        ansible-playbook -i config/inventory_all playbooks/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=create_snapshot" -e "lab_name=$i"
+        ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=create_snapshot" -e "lab_name=$i"
     done
 
+    for i in lab1 
+    do
+        ansible-playbook -i config/cluster/$i/inventory playbooks/cluster_infra_vsphere/setup_vmware_cluster.yml -e "action=revert_snapshot" -e "lab_name=$i"
+    done
 
-
-    kolla-ansible -i ./kolla/multinode --configdir ./kolla/config deploy
+    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config deploy
+    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/config pull
 
 
     # scale out openstack
