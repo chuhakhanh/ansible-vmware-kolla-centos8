@@ -230,6 +230,7 @@ neutron_plugin_agent: "openvswitch"
 #kolla_copy_ca_into_containers: "no"
 #haproxy_backend_cacert: "{{ 'ca-certificates.crt' if kolla_base_distro in ['debian', 'ubuntu'] else 'ca-bundle.trust.crt' }}"
 #haproxy_backend_cacert_dir: "/etc/ssl/certs"
+libvirt_tls: "no"
 
 ##################
 # Backend options
