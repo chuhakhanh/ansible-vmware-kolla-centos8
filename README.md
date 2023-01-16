@@ -118,8 +118,8 @@ There may be a bug that I cannot use a specific config_dir as below command beco
 So that use node_config as default : /etc/kolla (https://github.com/openstack/kolla-ansible/blob/master/ansible/group_vars/all.yml) to deploy
 
     cp -r ./config/kolla/ /etc/
+    kolla-ansible -i ./config/kolla/multinode bootstrap-servers
+    kolla-ansible -i ./config/kolla/multinode prechecks
     kolla-ansible -i ./config/kolla/multinode pull
-    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/ bootstrap-servers
-    kolla-ansible -i ./config/kolla/multinode --configdir ./config/kolla/ prechecks
     kolla-ansible -i ./config/kolla/multinode deploy
 
