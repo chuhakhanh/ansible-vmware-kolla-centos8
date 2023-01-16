@@ -27,7 +27,7 @@ IMAGE_TYPE=linux
 # This EXT_NET_CIDR is your public network,that you want to connect to the internet via.
 ENABLE_EXT_NET=${ENABLE_EXT_NET:-1}
 EXT_NET_CIDR=${EXT_NET_CIDR:-'10.1.0.0/16'}
-EXT_NET_RANGE=${EXT_NET_RANGE:-'start='$1,'end='$2}
+EXT_NET_RANGE=${EXT_NET_RANGE:-'start='10.1.17.130,'end='10.1.17.150}
 EXT_NET_GATEWAY=${EXT_NET_GATEWAY:-'10.1.0.1'}
 
 # Sanitize language settings to avoid commands bailing out
@@ -81,8 +81,8 @@ echo Configuring neutron.
 $KOLLA_OPENSTACK_COMMAND router create demo-router
 
 $KOLLA_OPENSTACK_COMMAND network create demo-net
-$KOLLA_OPENSTACK_COMMAND subnet create --subnet-range 192.168.126.0/24 --network demo-net \
-    --gateway 192.168.126.1 --dns-nameserver 8.8.8.8 demo-subnet
+$KOLLA_OPENSTACK_COMMAND subnet create --subnet-range 172.16.1.0/24 --network demo-net \
+    --gateway 172.16.1.1 --dns-nameserver 8.8.8.8 demo-subnet
 $KOLLA_OPENSTACK_COMMAND router add subnet demo-router demo-subnet
 
 if [[ $ENABLE_EXT_NET -eq 1 ]]; then
