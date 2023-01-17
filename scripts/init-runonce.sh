@@ -86,7 +86,7 @@ $KOLLA_OPENSTACK_COMMAND subnet create --subnet-range 172.16.1.0/24 --network de
 $KOLLA_OPENSTACK_COMMAND router add subnet demo-router demo-subnet
 
 if [[ $ENABLE_EXT_NET -eq 1 ]]; then
-    if [[ "$1" == "flat" ]]; then
+    if [[ "$1" == "vlan" ]]; then
         $KOLLA_OPENSTACK_COMMAND network create --share --external --provider-physical-network physnet1 --provider-network-type flat public1
     else
         $KOLLA_OPENSTACK_COMMAND network create --share --external --provider-physical-network physnet1 --provider-network-type vlan --provider-segment=111 public1
