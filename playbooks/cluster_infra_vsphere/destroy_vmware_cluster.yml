@@ -3,7 +3,7 @@
   include_vars:
     file: "../../vars/cluster/{{lab_name}}/vmw_vms.yml"
 
-- name: Remove a virtual machine from a template
+- name: Remove virtual machine in cluster
   community.vmware.vmware_guest:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
