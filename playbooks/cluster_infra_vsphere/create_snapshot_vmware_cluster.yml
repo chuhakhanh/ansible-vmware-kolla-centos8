@@ -13,7 +13,7 @@
     folder: "{{ vsphere_folder }}"
     name: "{{ item.name }}"
     state: present
-    snapshot_name: snap1
+    snapshot_name: "{{ snap_name }}"
   loop: "{{ vms }}" 
   delegate_to: localhost
 
