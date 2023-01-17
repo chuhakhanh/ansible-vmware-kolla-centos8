@@ -86,5 +86,7 @@ On compute node
     docker exec -it openvswitch_vswitchd tcpdump -nei br-ex
     docker exec -it openvswitch_vswitchd tcpdump -nei br-int
 
-    docker exec -it openvswitch_vswitchd /bin/bash ovs-appctl ofproto/trace br-ex 
+    docker exec -it openvswitch_vswitchd /bin/bash 
+    ovs-appctl ofproto/trace br-ex in_port=4,udp,dl_src=fa:16:3e:3f:49:f8,dl_dst=ff:ff:ff:ff:ff:ff,nw_dst=255.255.255.255,udp_dst=67,udp_src=68
     
+    ovs-ofctl show br-int
