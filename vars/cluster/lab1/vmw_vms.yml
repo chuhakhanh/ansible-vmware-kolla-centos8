@@ -6,7 +6,7 @@ vms:
     disk:
     - size_gb: 50
       type: thin
-      datastore: 10.1.0.21-hdd1
+      datastore: ssd01
     networks:
       - name: vlan_111
         ip: 10.1.17.51
@@ -28,7 +28,7 @@ vms:
     disk:
     - size_gb: 50
       type: thin
-      datastore: 10.1.0.21-hdd1
+      datastore: ssd01
     networks:
       - name: vlan_111
         ip: 10.1.17.52
@@ -50,7 +50,7 @@ vms:
     disk:
     - size_gb: 50
       type: thin
-      datastore: 10.1.0.21-hdd1
+      datastore: ssd02
     networks:
       - name: vlan_111
         ip: 10.1.17.53
@@ -72,7 +72,7 @@ vms:
     disk:
     - size_gb: 50
       type: thin
-      datastore: 10.1.0.21-hdd1
+      datastore: ssd02
     
     networks:
       - name: vlan_111
@@ -95,7 +95,7 @@ vms:
     disk:
     - size_gb: 50
       type: thin
-      datastore: 10.1.0.21-hdd1
+      datastore: ssd01
     networks:
       - name: vlan_111
         ip: 10.1.17.55
@@ -117,7 +117,7 @@ vms:
     disk:
     - size_gb: 50
       type: thin
-      datastore: 10.1.0.21-hdd1
+      datastore: ssd01
     networks:
       - name: vlan_111
         ip: 10.1.17.56
@@ -139,7 +139,7 @@ vms:
     disk:
     - size_gb: 50
       type: thin
-      datastore: 10.1.0.21-hdd1
+      datastore: ssd02
 
     - size_gb: 2048
       type: thin
