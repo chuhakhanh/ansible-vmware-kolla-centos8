@@ -86,11 +86,13 @@ $KOLLA_OPENSTACK_COMMAND subnet create --subnet-range 172.16.1.0/24 --network de
 $KOLLA_OPENSTACK_COMMAND router add subnet demo-router demo-subnet
 
 if [[ $ENABLE_EXT_NET -eq 1 ]]; then
-    $KOLLA_OPENSTACK_COMMAND network create --share --external --provider-physical-network physnet1 \
-        --provider-network-type flat public1
+    if [[ "$1" == "flat" ]]; then
+        $KOLLA_OPENSTACK_COMMAND network create --share --external --provider-physical-network physnet1 --provider-network-type flat public1
+    else
+        $KOLLA_OPENSTACK_COMMAND network create --share --external --provider-physical-network physnet1 --provider-network-type vlan --provider-segment=111 public1
+    fi   
         
-    $KOLLA_OPENSTACK_COMMAND subnet create --no-dhcp \
-        --allocation-pool ${EXT_NET_RANGE} --network public1 \
+    $KOLLA_OPENSTACK_COMMAND subnet create --allocation-pool ${EXT_NET_RANGE} --network public1 \
         --subnet-range ${EXT_NET_CIDR} --gateway ${EXT_NET_GATEWAY} public1-subnet
     $KOLLA_OPENSTACK_COMMAND router set --external-gateway public1 demo-router
 fi
