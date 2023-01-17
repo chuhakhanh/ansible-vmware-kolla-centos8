@@ -66,6 +66,12 @@ scale out openstack
     kolla-ansible -i ./config/kolla/multinode deploy --limit storage
     kolla-ansible -i ./config/kolla/multinode reconfigure --limit compute
 
+### edit configuration
+
+    docker exec -it -u0 neutron_openvswitch_agent /bin/bash
+    vi /etc/neutron/plugins/ml2/ml2_conf.ini 
+    chown neutron:neutron /etc/neutron/plugins/ml2/ml2_conf.ini
+    docker restart $(docker ps -a -q)
 
 ### OS
 
@@ -90,3 +96,4 @@ On compute node
     ovs-appctl ofproto/trace br-ex in_port=4,udp,dl_src=fa:16:3e:3f:49:f8,dl_dst=ff:ff:ff:ff:ff:ff,nw_dst=255.255.255.255,udp_dst=67,udp_src=68
     
     ovs-ofctl show br-int
+    ovs-ofctl dump-flows br-int

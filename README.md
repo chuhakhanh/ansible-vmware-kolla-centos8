@@ -100,7 +100,8 @@ Configure storage node, in this case we use NFS
 Prepare kolla-ansible
 
     ansible-galaxy collection install community.vmware
-    pip3 install "kolla-ansible==13.0.2.dev104"
+    pip3 install "kolla-ansible==13.7.0"
+    pip3 install git+https://opendev.org/openstack/kolla-ansible@stable/xena
 
 Prepare images ([Following steps in other gudie setup local repo ](https://github.com/chuhakhanh/local-repo-centos-stream8/Readme.md))
 
@@ -122,4 +123,16 @@ So that use node_config as default : /etc/kolla (https://github.com/openstack/ko
     kolla-ansible -i ./config/kolla/multinode prechecks
     kolla-ansible -i ./config/kolla/multinode pull
     kolla-ansible -i ./config/kolla/multinode deploy
+    kolla-ansible -i ./config/kolla/multinode post-deploy
+
+Change configure of openstack cluster
+
+    kolla-ansible -i ./config/kolla/multinode reconfigure
+    
+Initilization the Openstack Cluster
+
+    source /etc/kolla/admin-openrc.sh; chmod u+x scripts/init-runonce.sh; ./scripts/init-runonce.sh vlan
+
+Initilization the Openstack Cluster node
+    docker restart $(docker ps -a -q)
 
